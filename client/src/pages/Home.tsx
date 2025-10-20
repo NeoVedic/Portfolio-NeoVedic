@@ -67,6 +67,8 @@ export default function Home() {
 
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
+  const [currentTestimonialIndex, setCurrentTestimonialIndex] = useState(0);
+  const [isTestimonialPaused, setIsTestimonialPaused] = useState(false);
 
   useEffect(() => {
     if (isPaused) return;
@@ -77,6 +79,16 @@ export default function Home() {
 
     return () => clearInterval(interval);
   }, [isPaused, clients.length]);
+
+  useEffect(() => {
+    if (isTestimonialPaused) return;
+    
+    const interval = setInterval(() => {
+      setCurrentTestimonialIndex((prevIndex) => (prevIndex + 1) % testimonials.length);
+    }, 4000);
+
+    return () => clearInterval(interval);
+  }, [isTestimonialPaused, testimonials.length]);
 
   const getVisibleClients = () => {
     const visible = [];
@@ -163,30 +175,63 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {testimonials.map((testimonial, index) => (
-              <Card 
-                key={index} 
-                className="p-8 hover:shadow-xl transition-all duration-300 border-2 hover:border-primary/30 relative"
-                data-testid={`card-testimonial-${index}`}
-              >
-                <div className="absolute top-6 right-6 text-primary/20">
-                  <Quote className="w-12 h-12" />
-                </div>
-                <div className="flex gap-1 mb-4">
-                  {[...Array(testimonial.rating)].map((_, i) => (
-                    <Star key={i} className="w-5 h-5 fill-yellow-400 text-yellow-400" data-testid={`star-${index}-${i}`} />
-                  ))}
-                </div>
-                <p className="text-muted-foreground mb-6 leading-relaxed" data-testid={`text-testimonial-content-${index}`}>
-                  "{testimonial.content}"
-                </p>
-                <div className="border-t pt-4">
-                  <p className="font-bold" data-testid={`text-testimonial-name-${index}`}>{testimonial.name}</p>
-                  <p className="text-sm text-muted-foreground" data-testid={`text-testimonial-role-${index}`}>{testimonial.role}</p>
-                </div>
-              </Card>
-            ))}
+          <div 
+            className="relative overflow-hidden"
+            onMouseEnter={() => setIsTestimonialPaused(true)}
+            onMouseLeave={() => setIsTestimonialPaused(false)}
+          >
+            <div className="flex justify-center max-w-3xl mx-auto">
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={currentTestimonialIndex}
+                  initial={{ opacity: 0, x: 100 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: -100 }}
+                  transition={{ duration: 0.5 }}
+                  className="w-full"
+                >
+                  <Card 
+                    className="p-8 hover:shadow-xl transition-all duration-300 border-2 hover:border-primary/30 relative"
+                    data-testid={`card-testimonial-${currentTestimonialIndex}`}
+                  >
+                    <div className="absolute top-6 right-6 text-primary/20">
+                      <Quote className="w-12 h-12" />
+                    </div>
+                    <div className="flex gap-1 mb-4">
+                      {[...Array(testimonials[currentTestimonialIndex].rating)].map((_, i) => (
+                        <Star key={i} className="w-5 h-5 fill-yellow-400 text-yellow-400" data-testid={`star-${currentTestimonialIndex}-${i}`} />
+                      ))}
+                    </div>
+                    <p className="text-muted-foreground mb-6 leading-relaxed text-lg" data-testid={`text-testimonial-content-${currentTestimonialIndex}`}>
+                      "{testimonials[currentTestimonialIndex].content}"
+                    </p>
+                    <div className="border-t pt-4">
+                      <p className="font-bold text-lg" data-testid={`text-testimonial-name-${currentTestimonialIndex}`}>
+                        {testimonials[currentTestimonialIndex].name}
+                      </p>
+                      <p className="text-sm text-muted-foreground" data-testid={`text-testimonial-role-${currentTestimonialIndex}`}>
+                        {testimonials[currentTestimonialIndex].role}
+                      </p>
+                    </div>
+                  </Card>
+                </motion.div>
+              </AnimatePresence>
+            </div>
+            <div className="flex justify-center gap-2 mt-6">
+              {testimonials.map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => setCurrentTestimonialIndex(index)}
+                  className={`w-2 h-2 rounded-full transition-all ${
+                    index === currentTestimonialIndex 
+                      ? 'bg-primary w-8' 
+                      : 'bg-primary/30 hover:bg-primary/50'
+                  }`}
+                  data-testid={`testimonial-indicator-${index}`}
+                  aria-label={`Go to testimonial ${index + 1}`}
+                />
+              ))}
+            </div>
           </div>
         </div>
       </section>
