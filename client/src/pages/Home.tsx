@@ -4,7 +4,7 @@ import { ServicesSection } from "@/components/ServicesSection";
 import { AboutSection } from "@/components/AboutSection";
 import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Users, Briefcase, Star, Quote } from "lucide-react";
+import { ArrowRight, Users, Briefcase, Star, Quote, Building2, Rocket, Globe, Zap, Cloud, Cpu } from "lucide-react";
 import { Link } from "wouter";
 import { Card } from "@/components/ui/card";
 import { useState, useEffect } from "react";
@@ -57,12 +57,12 @@ export default function Home() {
   ];
 
   const clients = [
-    "TechCorp Inc.",
-    "StartupHub",
-    "Global Solutions",
-    "InnovateTech",
-    "Digital Dynamics",
-    "CloudFirst Systems",
+    { name: "TechCorp Inc.", icon: Building2, gradient: "from-blue-600 to-cyan-600" },
+    { name: "StartupHub", icon: Rocket, gradient: "from-purple-600 to-pink-600" },
+    { name: "Global Solutions", icon: Globe, gradient: "from-emerald-600 to-teal-600" },
+    { name: "InnovateTech", icon: Zap, gradient: "from-orange-600 to-red-600" },
+    { name: "Digital Dynamics", icon: Cpu, gradient: "from-indigo-600 to-purple-600" },
+    { name: "CloudFirst Systems", icon: Cloud, gradient: "from-sky-600 to-blue-600" },
   ];
 
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -82,7 +82,7 @@ export default function Home() {
     const visible = [];
     for (let i = 0; i < 3; i++) {
       const index = (currentIndex + i) % clients.length;
-      visible.push({ name: clients[index], index });
+      visible.push({ ...clients[index], slideIndex: index });
     }
     return visible;
   };
@@ -112,23 +112,29 @@ export default function Home() {
           >
             <div className="flex justify-center gap-8 max-w-4xl mx-auto">
               <AnimatePresence mode="popLayout">
-                {getVisibleClients().map((client, idx) => (
-                  <motion.div
-                    key={`${client.name}-${client.index}`}
-                    initial={{ opacity: 0, x: 100 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    exit={{ opacity: 0, x: -100 }}
-                    transition={{ duration: 0.5 }}
-                    className="flex-1"
-                  >
-                    <Card 
-                      className="p-6 flex items-center justify-center hover:shadow-lg transition-all duration-300 border-2 hover:border-primary/20 min-h-[100px]"
-                      data-testid={`card-client-${idx}`}
+                {getVisibleClients().map((client, idx) => {
+                  const Icon = client.icon;
+                  return (
+                    <motion.div
+                      key={`${client.name}-${client.slideIndex}`}
+                      initial={{ opacity: 0, x: 100 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      exit={{ opacity: 0, x: -100 }}
+                      transition={{ duration: 0.5 }}
+                      className="flex-1"
                     >
-                      <p className="text-sm font-semibold text-center text-muted-foreground">{client.name}</p>
-                    </Card>
-                  </motion.div>
-                ))}
+                      <Card 
+                        className="p-6 hover:shadow-xl transition-all duration-300 border-2 hover:border-primary/30 group cursor-pointer min-h-[140px] flex flex-col items-center justify-center"
+                        data-testid={`card-client-${idx}`}
+                      >
+                        <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${client.gradient} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform shadow-lg`}>
+                          <Icon className="w-8 h-8 text-white" />
+                        </div>
+                        <p className="text-base font-bold text-center group-hover:text-primary transition-colors">{client.name}</p>
+                      </Card>
+                    </motion.div>
+                  );
+                })}
               </AnimatePresence>
             </div>
             <div className="flex justify-center gap-2 mt-6">
