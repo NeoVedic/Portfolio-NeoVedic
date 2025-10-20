@@ -37,7 +37,7 @@ export default function Home() {
 
   const testimonials = [
     {
-      name: "Sarah Johnson",
+      name: "",
       role: "CTO, TechCorp Inc.",
       content: "NeoVedic transformed our legacy systems into a modern, scalable platform. Their expertise in cloud migration and AI integration was invaluable. The team delivered beyond our expectations.",
       rating: 5,
