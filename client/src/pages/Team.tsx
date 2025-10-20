@@ -73,7 +73,7 @@ export default function Team() {
                     alt={member.name}
                     className="w-full h-full object-cover"
                     style={
-                      index === 0 ? { objectPosition: '60% center' } :
+                      index === 0 ? { objectPosition: '40% center' } :
                       index === 1 ? { objectPosition: 'center 30%' } : 
                       undefined
                     }
