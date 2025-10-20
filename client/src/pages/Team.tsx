@@ -72,7 +72,11 @@ export default function Team() {
                     src={member.photo} 
                     alt={member.name}
                     className="w-full h-full object-cover"
-                    style={index === 1 ? { objectPosition: 'center 30%' } : undefined}
+                    style={
+                      index === 0 ? { objectPosition: '60% center' } :
+                      index === 1 ? { objectPosition: 'center 30%' } : 
+                      undefined
+                    }
                     data-testid={`img-team-photo-${index}`}
                   />
                 </div>
