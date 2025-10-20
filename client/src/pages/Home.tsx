@@ -22,9 +22,9 @@ import { Card } from "@/components/ui/card";
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import shantiLalPhoto from "@assets/stock_images/professional_busines_1192b26b.jpg";
-import manishKumarPhoto from "@assets/stock_images/professional_busines_c210a96d.jpg";
-import kanishkJainPhoto from "@assets/stock_images/professional_busines_015a144f.jpg";
-import deepakPanchalPhoto from "@assets/stock_images/professional_busines_e84fcf33.jpg";
+import manishKumarPhoto from "@assets/sah.jpg";
+import kanishkJainPhoto from "@assets/kanishk.jpg";
+import deepakPanchalPhoto from "@assets/deepak.jpg";
 
 export default function Home() {
   const quickLinks = [
