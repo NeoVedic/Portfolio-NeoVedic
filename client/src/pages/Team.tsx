@@ -3,7 +3,9 @@ import { Footer } from "@/components/Footer";
 import { Card } from "@/components/ui/card";
 import { Users, Linkedin, Mail } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import teamPhotoPlaceholder from "@assets/image_1760976684657.png";
+import manishPhoto from "@assets/Manish_photo.jpg";
+import himanshuPhoto from "@assets/himanshu_photo.jpg";
+import prerakPhoto from "@assets/prerak_photo.jpg";
 
 export default function Team() {
   const teamMembers = [
@@ -14,6 +16,7 @@ export default function Team() {
       gradient: "from-blue-600 to-cyan-600",
       linkedin: "https://www.linkedin.com/in/manishsharma31/",
       email: "info@neovedicsoft.com",
+      photo: manishPhoto,
     },
     {
       name: "Himanshu Bhargava",
@@ -22,6 +25,7 @@ export default function Team() {
       gradient: "from-purple-600 to-pink-600",
       linkedin: "https://www.linkedin.com/in/himanshu-bhargava-7a6450190/",
       email: "himanshu.bhargava@neovedicsoft.com",
+      photo: himanshuPhoto,
     },
     {
       name: "Prerak Khunteta",
@@ -30,6 +34,7 @@ export default function Team() {
       gradient: "from-emerald-600 to-teal-600",
       linkedin: "https://www.linkedin.com/in/prerakkhunteta/",
       email: "prerak.khunteta@neovedicsoft.com",
+      photo: prerakPhoto,
     },
   ];
 
@@ -64,7 +69,7 @@ export default function Team() {
               >
                 <div className="w-24 h-24 rounded-full overflow-hidden mb-6 mx-auto group-hover:scale-110 transition-transform ring-4 ring-primary/20">
                   <img 
-                    src={teamPhotoPlaceholder} 
+                    src={member.photo} 
                     alt={member.name}
                     className="w-full h-full object-cover"
                     data-testid={`img-team-photo-${index}`}

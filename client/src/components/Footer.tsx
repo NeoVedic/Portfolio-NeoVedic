@@ -33,8 +33,16 @@ export function Footer() {
   ];
 
   const socialLinks = [
-    { icon: Linkedin, href: "https://www.linkedin.com/company/neovedic-software", label: "LinkedIn" },
-    { icon: Instagram, href: "https://www.instagram.com/neovedicsoft/", label: "Instagram" },
+    {
+      icon: Linkedin,
+      href: "https://www.linkedin.com/company/neovedic-software",
+      label: "LinkedIn",
+    },
+    {
+      icon: Instagram,
+      href: "https://www.instagram.com/neovedicsoft/",
+      label: "Instagram",
+    },
     { icon: Mail, href: "mailto:info@neovedicsoft.com", label: "Email" },
   ];
 
@@ -46,15 +54,19 @@ export function Footer() {
             <Link href="/" data-testid="link-footer-logo">
               <div className="flex items-center gap-3 mb-4 hover-elevate active-elevate-2 rounded-md -ml-3 pl-3 py-2 inline-flex">
                 <div className="w-10 h-10 rounded-md bg-gradient-to-br from-primary to-chart-2 flex items-center justify-center">
-                  <span className="text-xl font-bold text-primary-foreground">N</span>
+                  <span className="text-xl font-bold text-primary-foreground">
+                    N
+                  </span>
                 </div>
                 <span className="text-2xl font-bold bg-gradient-to-r from-primary via-chart-2 to-chart-3 bg-clip-text text-transparent">
-                  NeoVedic
+                  NeoVedic Software
                 </span>
               </div>
             </Link>
             <p className="text-muted-foreground mb-6 max-w-sm">
-              Transforming businesses through innovative IT solutions. Your trusted partner for Web Development, DevOps, Cloud, and Marketing excellence.
+              Transforming businesses through innovative IT solutions. Your
+              trusted partner for Web Development, DevOps, Cloud, and Marketing
+              excellence.
             </p>
             <div className="flex items-center gap-3">
               {socialLinks.map((social) => {
@@ -80,16 +92,19 @@ export function Footer() {
               <ul className="space-y-3">
                 {section.links.map((link) => (
                   <li key={link.label}>
-                    {link.href.startsWith('#') ? (
+                    {link.href.startsWith("#") ? (
                       <a
                         href={link.href}
                         className="text-muted-foreground hover:text-foreground transition-colors text-sm"
-                        data-testid={`link-footer-${link.label.toLowerCase().replace(/\s+/g, '-')}`}
+                        data-testid={`link-footer-${link.label.toLowerCase().replace(/\s+/g, "-")}`}
                       >
                         {link.label}
                       </a>
                     ) : (
-                      <Link href={link.href} data-testid={`link-footer-${link.label.toLowerCase().replace(/\s+/g, '-')}`}>
+                      <Link
+                        href={link.href}
+                        data-testid={`link-footer-${link.label.toLowerCase().replace(/\s+/g, "-")}`}
+                      >
                         <span className="text-muted-foreground hover:text-foreground transition-colors text-sm cursor-pointer">
                           {link.label}
                         </span>
@@ -104,13 +119,22 @@ export function Footer() {
 
         <div className="pt-8 border-t border-border flex flex-col md:flex-row items-center justify-between gap-4">
           <p className="text-sm text-muted-foreground">
-            © {new Date().getFullYear()} NeoVedic. All rights reserved.
+            © {new Date().getFullYear()} NeoVedic Software. All rights
+            reserved.
           </p>
           <div className="flex items-center gap-6">
-            <a href="#" className="text-sm text-muted-foreground hover:text-foreground transition-colors" data-testid="link-footer-privacy">
+            <a
+              href="#"
+              className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+              data-testid="link-footer-privacy"
+            >
               Privacy Policy
             </a>
-            <a href="#" className="text-sm text-muted-foreground hover:text-foreground transition-colors" data-testid="link-footer-terms">
+            <a
+              href="#"
+              className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+              data-testid="link-footer-terms"
+            >
               Terms of Service
             </a>
           </div>
