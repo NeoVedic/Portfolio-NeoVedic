@@ -41,18 +41,24 @@ export default function Home() {
       role: "CTO, TechCorp Inc.",
       content: "NeoVedic transformed our legacy systems into a modern, scalable platform. Their expertise in cloud migration and AI integration was invaluable. The team delivered beyond our expectations.",
       rating: 5,
+      initials: "SJ",
+      gradient: "from-blue-600 to-cyan-600",
     },
     {
       name: "Michael Chen",
       role: "Founder, StartupHub",
       content: "Working with NeoVedic was a game-changer for our business. They built our MVP in record time and helped us scale to handle millions of users. Highly recommend their services!",
       rating: 5,
+      initials: "MC",
+      gradient: "from-purple-600 to-pink-600",
     },
     {
       name: "Emily Rodriguez",
       role: "Director of IT, Global Solutions",
       content: "The team at NeoVedic is professional, responsive, and highly skilled. They helped us implement automation that saved countless hours and significantly reduced operational costs.",
       rating: 5,
+      initials: "ER",
+      gradient: "from-emerald-600 to-teal-600",
     },
   ];
 
@@ -205,13 +211,23 @@ export default function Home() {
                     <p className="text-muted-foreground mb-6 leading-relaxed text-lg" data-testid={`text-testimonial-content-${currentTestimonialIndex}`}>
                       "{testimonials[currentTestimonialIndex].content}"
                     </p>
-                    <div className="border-t pt-4">
-                      <p className="font-bold text-lg" data-testid={`text-testimonial-name-${currentTestimonialIndex}`}>
-                        {testimonials[currentTestimonialIndex].name}
-                      </p>
-                      <p className="text-sm text-muted-foreground" data-testid={`text-testimonial-role-${currentTestimonialIndex}`}>
-                        {testimonials[currentTestimonialIndex].role}
-                      </p>
+                    <div className="border-t pt-4 flex items-center gap-4">
+                      <div 
+                        className={`w-14 h-14 rounded-full bg-gradient-to-br ${testimonials[currentTestimonialIndex].gradient} flex items-center justify-center flex-shrink-0 shadow-lg`}
+                        data-testid={`avatar-${currentTestimonialIndex}`}
+                      >
+                        <span className="text-white font-bold text-lg">
+                          {testimonials[currentTestimonialIndex].initials}
+                        </span>
+                      </div>
+                      <div>
+                        <p className="font-bold text-lg" data-testid={`text-testimonial-name-${currentTestimonialIndex}`}>
+                          {testimonials[currentTestimonialIndex].name}
+                        </p>
+                        <p className="text-sm text-muted-foreground" data-testid={`text-testimonial-role-${currentTestimonialIndex}`}>
+                          {testimonials[currentTestimonialIndex].role}
+                        </p>
+                      </div>
                     </div>
                   </Card>
                 </motion.div>
