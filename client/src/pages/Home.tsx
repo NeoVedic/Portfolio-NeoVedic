@@ -7,6 +7,8 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight, Users, Briefcase, Star, Quote } from "lucide-react";
 import { Link } from "wouter";
 import { Card } from "@/components/ui/card";
+import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 
 export default function Home() {
   const quickLinks = [
@@ -63,6 +65,28 @@ export default function Home() {
     "CloudFirst Systems",
   ];
 
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
+
+  useEffect(() => {
+    if (isPaused) return;
+    
+    const interval = setInterval(() => {
+      setCurrentIndex((prevIndex) => (prevIndex + 1) % clients.length);
+    }, 3000);
+
+    return () => clearInterval(interval);
+  }, [isPaused, clients.length]);
+
+  const getVisibleClients = () => {
+    const visible = [];
+    for (let i = 0; i < 3; i++) {
+      const index = (currentIndex + i) % clients.length;
+      visible.push({ name: clients[index], index });
+    }
+    return visible;
+  };
+
   return (
     <div className="min-h-screen">
       <Navigation />
@@ -81,16 +105,47 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 mb-20">
-            {clients.map((client, index) => (
-              <Card 
-                key={client} 
-                className="p-6 flex items-center justify-center hover:shadow-lg transition-all duration-300 border-2 hover:border-primary/20"
-                data-testid={`card-client-${index}`}
-              >
-                <p className="text-sm font-semibold text-center text-muted-foreground">{client}</p>
-              </Card>
-            ))}
+          <div 
+            className="relative overflow-hidden mb-20"
+            onMouseEnter={() => setIsPaused(true)}
+            onMouseLeave={() => setIsPaused(false)}
+          >
+            <div className="flex justify-center gap-8 max-w-4xl mx-auto">
+              <AnimatePresence mode="popLayout">
+                {getVisibleClients().map((client, idx) => (
+                  <motion.div
+                    key={`${client.name}-${client.index}`}
+                    initial={{ opacity: 0, x: 100 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: -100 }}
+                    transition={{ duration: 0.5 }}
+                    className="flex-1"
+                  >
+                    <Card 
+                      className="p-6 flex items-center justify-center hover:shadow-lg transition-all duration-300 border-2 hover:border-primary/20 min-h-[100px]"
+                      data-testid={`card-client-${idx}`}
+                    >
+                      <p className="text-sm font-semibold text-center text-muted-foreground">{client.name}</p>
+                    </Card>
+                  </motion.div>
+                ))}
+              </AnimatePresence>
+            </div>
+            <div className="flex justify-center gap-2 mt-6">
+              {clients.map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => setCurrentIndex(index)}
+                  className={`w-2 h-2 rounded-full transition-all ${
+                    index === currentIndex 
+                      ? 'bg-primary w-8' 
+                      : 'bg-primary/30 hover:bg-primary/50'
+                  }`}
+                  data-testid={`indicator-${index}`}
+                  aria-label={`Go to slide ${index + 1}`}
+                />
+              ))}
+            </div>
           </div>
 
           <div className="mb-12">
