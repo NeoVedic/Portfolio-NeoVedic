@@ -4,11 +4,27 @@ import { ServicesSection } from "@/components/ServicesSection";
 import { AboutSection } from "@/components/AboutSection";
 import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Users, Briefcase, Star, Quote, Building2, Rocket, Globe, Zap, Cloud, Cpu } from "lucide-react";
+import {
+  ArrowRight,
+  Users,
+  Briefcase,
+  Star,
+  Quote,
+  Building2,
+  Rocket,
+  Globe,
+  Zap,
+  Cloud,
+  Cpu,
+} from "lucide-react";
 import { Link } from "wouter";
 import { Card } from "@/components/ui/card";
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import shantiLalPhoto from "@assets/stock_images/professional_busines_1192b26b.jpg";
+import manishKumarPhoto from "@assets/stock_images/professional_busines_c210a96d.jpg";
+import kanishkJainPhoto from "@assets/stock_images/professional_busines_015a144f.jpg";
+import deepakPanchalPhoto from "@assets/stock_images/professional_busines_e84fcf33.jpg";
 
 export default function Home() {
   const quickLinks = [
@@ -37,38 +53,66 @@ export default function Home() {
 
   const testimonials = [
     {
-      name: "",
-      role: "CTO, TechCorp Inc.",
-      content: "NeoVedic transformed our legacy systems into a modern, scalable platform. Their expertise in cloud migration and AI integration was invaluable. The team delivered beyond our expectations.",
+      name: "Shanti Lal Sharma",
+      role: "Founder, Bhagwati Caterers",
+      content:
+        "The team at NeoVedic Software is professional, responsive, and highly skilled. They helped us implement automation that saved countless hours and significantly reduced operational costs.",
       rating: 5,
-      initials: "SJ",
-      gradient: "from-blue-600 to-cyan-600",
+      photo: shantiLalPhoto,
     },
     {
-      name: "Michael Chen",
-      role: "Founder, StartupHub",
-      content: "Working with NeoVedic was a game-changer for our business. They built our MVP in record time and helped us scale to handle millions of users. Highly recommend their services!",
+      name: "Manish Kumar Sah",
+      role: "Director, Boardzone",
+      content:
+        "NeoVedic transformed our legacy systems into a modern, scalable platform. Their expertise in cloud migration and AI integration was invaluable. The team delivered beyond our expectations.",
       rating: 5,
-      initials: "MC",
-      gradient: "from-purple-600 to-pink-600",
+      photo: manishKumarPhoto,
     },
     {
-      name: "Emily Rodriguez",
-      role: "Director of IT, Global Solutions",
-      content: "The team at NeoVedic is professional, responsive, and highly skilled. They helped us implement automation that saved countless hours and significantly reduced operational costs.",
+      name: "Kanishk Jain",
+      role: "SDE-1, Quintype Technologies",
+      content:
+        "Working with NeoVedic was a game-changer for our business. They built our MVP in record time and helped us scale to handle millions of users. Highly recommend their services!",
       rating: 5,
-      initials: "ER",
-      gradient: "from-emerald-600 to-teal-600",
+      photo: kanishkJainPhoto,
+    },
+    {
+      name: "Deepak Panchal",
+      role: "SDE-2, TechInnova Technologies",
+      content:
+        "The team of NeoVedic Software is too good, responsive & Cooperative towards work.",
+      rating: 5,
+      photo: deepakPanchalPhoto,
     },
   ];
 
   const clients = [
-    { name: "TechCorp Inc.", icon: Building2, gradient: "from-blue-600 to-cyan-600" },
-    { name: "StartupHub", icon: Rocket, gradient: "from-purple-600 to-pink-600" },
-    { name: "Global Solutions", icon: Globe, gradient: "from-emerald-600 to-teal-600" },
+    {
+      name: "TechCorp Inc.",
+      icon: Building2,
+      gradient: "from-blue-600 to-cyan-600",
+    },
+    {
+      name: "StartupHub",
+      icon: Rocket,
+      gradient: "from-purple-600 to-pink-600",
+    },
+    {
+      name: "Global Solutions",
+      icon: Globe,
+      gradient: "from-emerald-600 to-teal-600",
+    },
     { name: "InnovateTech", icon: Zap, gradient: "from-orange-600 to-red-600" },
-    { name: "Digital Dynamics", icon: Cpu, gradient: "from-indigo-600 to-purple-600" },
-    { name: "CloudFirst Systems", icon: Cloud, gradient: "from-sky-600 to-blue-600" },
+    {
+      name: "Digital Dynamics",
+      icon: Cpu,
+      gradient: "from-indigo-600 to-purple-600",
+    },
+    {
+      name: "CloudFirst Systems",
+      icon: Cloud,
+      gradient: "from-sky-600 to-blue-600",
+    },
   ];
 
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -78,7 +122,7 @@ export default function Home() {
 
   useEffect(() => {
     if (isPaused) return;
-    
+
     const interval = setInterval(() => {
       setCurrentIndex((prevIndex) => (prevIndex + 1) % clients.length);
     }, 3000);
@@ -88,9 +132,11 @@ export default function Home() {
 
   useEffect(() => {
     if (isTestimonialPaused) return;
-    
+
     const interval = setInterval(() => {
-      setCurrentTestimonialIndex((prevIndex) => (prevIndex + 1) % testimonials.length);
+      setCurrentTestimonialIndex(
+        (prevIndex) => (prevIndex + 1) % testimonials.length,
+      );
     }, 4000);
 
     return () => clearInterval(interval);
@@ -111,19 +157,23 @@ export default function Home() {
       <HeroSection />
       <ServicesSection />
       <AboutSection />
-      
+
       <section className="py-20 md:py-32 bg-gradient-to-br from-primary/5 to-purple-500/5">
         <div className="max-w-7xl mx-auto px-6">
           <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold mb-6" data-testid="text-clients-title">
+            <h2
+              className="text-4xl md:text-5xl font-bold mb-6"
+              data-testid="text-clients-title"
+            >
               Trusted by Leading Companies
             </h2>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              Join hundreds of satisfied clients who have transformed their businesses with our solutions
+              Join hundreds of satisfied clients who have transformed their
+              businesses with our solutions
             </p>
           </div>
 
-          <div 
+          <div
             className="relative overflow-hidden mb-20"
             onMouseEnter={() => setIsPaused(true)}
             onMouseLeave={() => setIsPaused(false)}
@@ -141,14 +191,18 @@ export default function Home() {
                       transition={{ duration: 0.5 }}
                       className="flex-1"
                     >
-                      <Card 
+                      <Card
                         className="p-6 hover:shadow-xl transition-all duration-300 border-2 hover:border-primary/30 group cursor-pointer min-h-[140px] flex flex-col items-center justify-center"
                         data-testid={`card-client-${idx}`}
                       >
-                        <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${client.gradient} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform shadow-lg`}>
+                        <div
+                          className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${client.gradient} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform shadow-lg`}
+                        >
                           <Icon className="w-8 h-8 text-white" />
                         </div>
-                        <p className="text-base font-bold text-center group-hover:text-primary transition-colors">{client.name}</p>
+                        <p className="text-base font-bold text-center group-hover:text-primary transition-colors">
+                          {client.name}
+                        </p>
                       </Card>
                     </motion.div>
                   );
@@ -161,9 +215,9 @@ export default function Home() {
                   key={index}
                   onClick={() => setCurrentIndex(index)}
                   className={`w-2 h-2 rounded-full transition-all ${
-                    index === currentIndex 
-                      ? 'bg-primary w-8' 
-                      : 'bg-primary/30 hover:bg-primary/50'
+                    index === currentIndex
+                      ? "bg-primary w-8"
+                      : "bg-primary/30 hover:bg-primary/50"
                   }`}
                   data-testid={`indicator-${index}`}
                   aria-label={`Go to slide ${index + 1}`}
@@ -173,15 +227,19 @@ export default function Home() {
           </div>
 
           <div className="mb-12">
-            <h3 className="text-3xl md:text-4xl font-bold text-center mb-4" data-testid="text-testimonials-title">
+            <h3
+              className="text-3xl md:text-4xl font-bold text-center mb-4"
+              data-testid="text-testimonials-title"
+            >
               What Our Clients Say
             </h3>
             <p className="text-lg text-muted-foreground text-center max-w-2xl mx-auto">
-              Don't just take our word for it - hear from the businesses we've helped succeed
+              Don't just take our word for it - hear from the businesses we've
+              helped succeed
             </p>
           </div>
 
-          <div 
+          <div
             className="relative overflow-hidden"
             onMouseEnter={() => setIsTestimonialPaused(true)}
             onMouseLeave={() => setIsTestimonialPaused(false)}
@@ -196,7 +254,7 @@ export default function Home() {
                   transition={{ duration: 0.5 }}
                   className="w-full"
                 >
-                  <Card 
+                  <Card
                     className="p-8 hover:shadow-xl transition-all duration-300 border-2 hover:border-primary/30 relative"
                     data-testid={`card-testimonial-${currentTestimonialIndex}`}
                   >
@@ -204,27 +262,40 @@ export default function Home() {
                       <Quote className="w-12 h-12" />
                     </div>
                     <div className="flex gap-1 mb-4">
-                      {[...Array(testimonials[currentTestimonialIndex].rating)].map((_, i) => (
-                        <Star key={i} className="w-5 h-5 fill-yellow-400 text-yellow-400" data-testid={`star-${currentTestimonialIndex}-${i}`} />
+                      {[
+                        ...Array(testimonials[currentTestimonialIndex].rating),
+                      ].map((_, i) => (
+                        <Star
+                          key={i}
+                          className="w-5 h-5 fill-yellow-400 text-yellow-400"
+                          data-testid={`star-${currentTestimonialIndex}-${i}`}
+                        />
                       ))}
                     </div>
-                    <p className="text-muted-foreground mb-6 leading-relaxed text-lg" data-testid={`text-testimonial-content-${currentTestimonialIndex}`}>
+                    <p
+                      className="text-muted-foreground mb-6 leading-relaxed text-lg"
+                      data-testid={`text-testimonial-content-${currentTestimonialIndex}`}
+                    >
                       "{testimonials[currentTestimonialIndex].content}"
                     </p>
                     <div className="border-t pt-4 flex items-center gap-4">
-                      <div 
-                        className={`w-14 h-14 rounded-full bg-gradient-to-br ${testimonials[currentTestimonialIndex].gradient} flex items-center justify-center flex-shrink-0 shadow-lg`}
+                      <img
+                        src={testimonials[currentTestimonialIndex].photo}
+                        alt={testimonials[currentTestimonialIndex].name}
+                        className="w-14 h-14 rounded-full object-cover flex-shrink-0 shadow-lg"
                         data-testid={`avatar-${currentTestimonialIndex}`}
-                      >
-                        <span className="text-white font-bold text-lg">
-                          {testimonials[currentTestimonialIndex].initials}
-                        </span>
-                      </div>
+                      />
                       <div>
-                        <p className="font-bold text-lg" data-testid={`text-testimonial-name-${currentTestimonialIndex}`}>
+                        <p
+                          className="font-bold text-lg"
+                          data-testid={`text-testimonial-name-${currentTestimonialIndex}`}
+                        >
                           {testimonials[currentTestimonialIndex].name}
                         </p>
-                        <p className="text-sm text-muted-foreground" data-testid={`text-testimonial-role-${currentTestimonialIndex}`}>
+                        <p
+                          className="text-sm text-muted-foreground"
+                          data-testid={`text-testimonial-role-${currentTestimonialIndex}`}
+                        >
                           {testimonials[currentTestimonialIndex].role}
                         </p>
                       </div>
@@ -239,9 +310,9 @@ export default function Home() {
                   key={index}
                   onClick={() => setCurrentTestimonialIndex(index)}
                   className={`w-2 h-2 rounded-full transition-all ${
-                    index === currentTestimonialIndex 
-                      ? 'bg-primary w-8' 
-                      : 'bg-primary/30 hover:bg-primary/50'
+                    index === currentTestimonialIndex
+                      ? "bg-primary w-8"
+                      : "bg-primary/30 hover:bg-primary/50"
                   }`}
                   data-testid={`testimonial-indicator-${index}`}
                   aria-label={`Go to testimonial ${index + 1}`}
@@ -251,13 +322,16 @@ export default function Home() {
           </div>
         </div>
       </section>
-      
+
       <section className="py-24 md:py-32 bg-muted/20">
         <div className="max-w-7xl mx-auto px-6">
           <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold mb-6">Explore More</h2>
+            <h2 className="text-4xl md:text-5xl font-bold mb-6">
+              Explore More
+            </h2>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              Discover how NeoVedic Software can help accelerate your business growth
+              Discover how NeoVedic Software can help accelerate your business
+              growth
             </p>
           </div>
 
@@ -267,11 +341,17 @@ export default function Home() {
               return (
                 <Link key={link.href} href={link.href}>
                   <Card className="p-8 h-full hover:shadow-xl transition-all duration-300 border-2 hover:border-primary/30 cursor-pointer group">
-                    <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${link.gradient} flex items-center justify-center mb-6 group-hover:scale-110 transition-transform`}>
+                    <div
+                      className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${link.gradient} flex items-center justify-center mb-6 group-hover:scale-110 transition-transform`}
+                    >
                       <Icon className="w-8 h-8 text-white" />
                     </div>
-                    <h3 className="text-2xl font-bold mb-3 group-hover:text-primary transition-colors">{link.title}</h3>
-                    <p className="text-muted-foreground text-lg leading-relaxed mb-6">{link.description}</p>
+                    <h3 className="text-2xl font-bold mb-3 group-hover:text-primary transition-colors">
+                      {link.title}
+                    </h3>
+                    <p className="text-muted-foreground text-lg leading-relaxed mb-6">
+                      {link.description}
+                    </p>
                     <div className="flex items-center gap-2 text-primary font-semibold">
                       Learn More
                       <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
@@ -287,9 +367,12 @@ export default function Home() {
       <section className="py-24 md:py-40 bg-gradient-to-br from-primary/10 to-purple-500/10 relative overflow-hidden">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-primary/20 to-transparent" />
         <div className="relative max-w-4xl mx-auto px-6 text-center">
-          <h2 className="text-4xl md:text-6xl font-bold mb-8">Ready to Transform Your Business?</h2>
+          <h2 className="text-4xl md:text-6xl font-bold mb-8">
+            Ready to Transform Your Business?
+          </h2>
           <p className="text-xl md:text-2xl text-muted-foreground mb-12 leading-relaxed">
-            Let's discuss how our enterprise solutions can drive your digital transformation and accelerate growth.
+            Let's discuss how our enterprise solutions can drive your digital
+            transformation and accelerate growth.
           </p>
           <div className="flex flex-col sm:flex-row gap-5 justify-center">
             <Button size="lg" asChild className="px-10 py-6 text-lg">
@@ -300,7 +383,12 @@ export default function Home() {
                 </span>
               </Link>
             </Button>
-            <Button size="lg" variant="outline" asChild className="px-10 py-6 text-lg">
+            <Button
+              size="lg"
+              variant="outline"
+              asChild
+              className="px-10 py-6 text-lg"
+            >
               <Link href="/services">View All Services</Link>
             </Button>
           </div>
