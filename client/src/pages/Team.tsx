@@ -3,6 +3,7 @@ import { Footer } from "@/components/Footer";
 import { Card } from "@/components/ui/card";
 import { Users, Linkedin, Mail } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import teamPhotoPlaceholder from "@assets/image_1760976684657.png";
 
 export default function Team() {
   const teamMembers = [
@@ -11,18 +12,24 @@ export default function Team() {
       role: "Founder and CEO",
       description: "Visionary leader with extensive experience in driving digital transformation and business growth. Manish brings strategic insight and technical expertise to guide NeoVedic's mission of delivering AI-first solutions.",
       gradient: "from-blue-600 to-cyan-600",
+      linkedin: "https://www.linkedin.com/in/manishsharma31/",
+      email: "info@neovedicsoft.com",
     },
     {
       name: "Himanshu Bhargava",
       role: "Cofounder and CTO",
       description: "Technology innovator specializing in scalable architectures and cutting-edge development. Himanshu leads our technical strategy, ensuring we deliver robust, future-proof solutions to our clients.",
       gradient: "from-purple-600 to-pink-600",
+      linkedin: "https://www.linkedin.com/in/himanshu-bhargava-7a6450190/",
+      email: "himanshu.bhargava@neovedicsoft.com",
     },
     {
       name: "Prerak Khunteta",
       role: "Cofounder and CMO",
       description: "Strategic marketing leader with a proven track record in brand development and digital growth. Prerak spearheads our marketing initiatives, helping businesses amplify their digital presence.",
       gradient: "from-emerald-600 to-teal-600",
+      linkedin: "https://www.linkedin.com/in/prerakkhunteta/",
+      email: "prerak.khunteta@neovedicsoft.com",
     },
   ];
 
@@ -55,10 +62,13 @@ export default function Team() {
                 className="p-8 hover:shadow-xl transition-all duration-300 border-2 hover:border-primary/30 group"
                 data-testid={`card-team-member-${index}`}
               >
-                <div className={`w-24 h-24 rounded-full bg-gradient-to-br ${member.gradient} flex items-center justify-center mb-6 mx-auto group-hover:scale-110 transition-transform`}>
-                  <span className="text-4xl font-bold text-white" data-testid={`text-initial-${index}`}>
-                    {member.name.split(' ').map(n => n[0]).join('')}
-                  </span>
+                <div className="w-24 h-24 rounded-full overflow-hidden mb-6 mx-auto group-hover:scale-110 transition-transform ring-4 ring-primary/20">
+                  <img 
+                    src={teamPhotoPlaceholder} 
+                    alt={member.name}
+                    className="w-full h-full object-cover"
+                    data-testid={`img-team-photo-${index}`}
+                  />
                 </div>
                 <h3 className="text-2xl font-bold mb-2 text-center" data-testid={`text-name-${index}`}>
                   {member.name}
@@ -75,16 +85,22 @@ export default function Team() {
                     size="icon" 
                     className="rounded-full hover:bg-primary hover:text-primary-foreground transition-colors"
                     data-testid={`button-linkedin-${index}`}
+                    asChild
                   >
-                    <Linkedin className="w-5 h-5" />
+                    <a href={member.linkedin} target="_blank" rel="noopener noreferrer">
+                      <Linkedin className="w-5 h-5" />
+                    </a>
                   </Button>
                   <Button 
                     variant="outline" 
                     size="icon" 
                     className="rounded-full hover:bg-primary hover:text-primary-foreground transition-colors"
                     data-testid={`button-email-${index}`}
+                    asChild
                   >
-                    <Mail className="w-5 h-5" />
+                    <a href={`mailto:${member.email}`}>
+                      <Mail className="w-5 h-5" />
+                    </a>
                   </Button>
                 </div>
               </Card>
