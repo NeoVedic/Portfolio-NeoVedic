@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Link, useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Menu, X, ChevronDown } from "lucide-react";
+import logoImage from "@assets/Logo_1760975857851.png";
 
 export function Navigation() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -49,8 +50,13 @@ export function Navigation() {
         <div className="flex items-center justify-between h-20">
           <Link href="/" data-testid="link-home">
             <div className="flex items-center gap-3 hover:opacity-90 transition-opacity rounded-md px-3 py-2 -ml-3">
-              <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-blue-600 via-purple-600 to-pink-600 flex items-center justify-center shadow-lg">
-                <span className="text-2xl font-bold text-white">N</span>
+              <div className="w-11 h-11 rounded-xl bg-white flex items-center justify-center shadow-lg p-1">
+                <img 
+                  src={logoImage} 
+                  alt="NeoVedic Logo" 
+                  className="w-full h-full object-contain"
+                  data-testid="img-logo"
+                />
               </div>
               <span className="text-2xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
                 NeoVedic
