@@ -4,7 +4,7 @@ import { ServicesSection } from "@/components/ServicesSection";
 import { AboutSection } from "@/components/AboutSection";
 import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Users, Briefcase, Star } from "lucide-react";
+import { ArrowRight, Users, Briefcase, Star, Quote } from "lucide-react";
 import { Link } from "wouter";
 import { Card } from "@/components/ui/card";
 
@@ -33,12 +33,102 @@ export default function Home() {
     },
   ];
 
+  const testimonials = [
+    {
+      name: "Sarah Johnson",
+      role: "CTO, TechCorp Inc.",
+      content: "NeoVedic transformed our legacy systems into a modern, scalable platform. Their expertise in cloud migration and AI integration was invaluable. The team delivered beyond our expectations.",
+      rating: 5,
+    },
+    {
+      name: "Michael Chen",
+      role: "Founder, StartupHub",
+      content: "Working with NeoVedic was a game-changer for our business. They built our MVP in record time and helped us scale to handle millions of users. Highly recommend their services!",
+      rating: 5,
+    },
+    {
+      name: "Emily Rodriguez",
+      role: "Director of IT, Global Solutions",
+      content: "The team at NeoVedic is professional, responsive, and highly skilled. They helped us implement automation that saved countless hours and significantly reduced operational costs.",
+      rating: 5,
+    },
+  ];
+
+  const clients = [
+    "TechCorp Inc.",
+    "StartupHub",
+    "Global Solutions",
+    "InnovateTech",
+    "Digital Dynamics",
+    "CloudFirst Systems",
+  ];
+
   return (
     <div className="min-h-screen">
       <Navigation />
       <HeroSection />
       <ServicesSection />
       <AboutSection />
+      
+      <section className="py-20 md:py-32 bg-gradient-to-br from-primary/5 to-purple-500/5">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-bold mb-6" data-testid="text-clients-title">
+              Trusted by Leading Companies
+            </h2>
+            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+              Join hundreds of satisfied clients who have transformed their businesses with our solutions
+            </p>
+          </div>
+
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 mb-20">
+            {clients.map((client, index) => (
+              <Card 
+                key={client} 
+                className="p-6 flex items-center justify-center hover:shadow-lg transition-all duration-300 border-2 hover:border-primary/20"
+                data-testid={`card-client-${index}`}
+              >
+                <p className="text-sm font-semibold text-center text-muted-foreground">{client}</p>
+              </Card>
+            ))}
+          </div>
+
+          <div className="mb-12">
+            <h3 className="text-3xl md:text-4xl font-bold text-center mb-4" data-testid="text-testimonials-title">
+              What Our Clients Say
+            </h3>
+            <p className="text-lg text-muted-foreground text-center max-w-2xl mx-auto">
+              Don't just take our word for it - hear from the businesses we've helped succeed
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {testimonials.map((testimonial, index) => (
+              <Card 
+                key={index} 
+                className="p-8 hover:shadow-xl transition-all duration-300 border-2 hover:border-primary/30 relative"
+                data-testid={`card-testimonial-${index}`}
+              >
+                <div className="absolute top-6 right-6 text-primary/20">
+                  <Quote className="w-12 h-12" />
+                </div>
+                <div className="flex gap-1 mb-4">
+                  {[...Array(testimonial.rating)].map((_, i) => (
+                    <Star key={i} className="w-5 h-5 fill-yellow-400 text-yellow-400" data-testid={`star-${index}-${i}`} />
+                  ))}
+                </div>
+                <p className="text-muted-foreground mb-6 leading-relaxed" data-testid={`text-testimonial-content-${index}`}>
+                  "{testimonial.content}"
+                </p>
+                <div className="border-t pt-4">
+                  <p className="font-bold" data-testid={`text-testimonial-name-${index}`}>{testimonial.name}</p>
+                  <p className="text-sm text-muted-foreground" data-testid={`text-testimonial-role-${index}`}>{testimonial.role}</p>
+                </div>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
       
       <section className="py-24 md:py-32 bg-muted/20">
         <div className="max-w-7xl mx-auto px-6">
