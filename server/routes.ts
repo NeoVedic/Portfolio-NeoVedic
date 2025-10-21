@@ -65,19 +65,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
         }
       }
       
-      await connectToMongoDB();
+      const application = await storage.createJobApplication(validatedData);
       
-      const application = await JobApplication.create({
-        name: validatedData.name,
-        email: validatedData.email,
-        phone: validatedData.phone,
-        position: validatedData.position,
-        experience: validatedData.experience,
-        resumeUrl: validatedData.resumeUrl,
-        coverLetter: validatedData.coverLetter,
-      });
-      
-      res.json({ success: true, id: String(application._id) });
+      res.json({ success: true, id: application.id });
     } catch (error: any) {
       console.error('Job application error:', error);
       
@@ -95,8 +85,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   
   app.get("/api/job-applications", async (_req, res) => {
     try {
-      await connectToMongoDB();
-      const applications = await JobApplication.find().sort({ createdAt: -1 });
+      const applications = await storage.getAllJobApplications();
       res.json(applications);
     } catch (error: any) {
       console.error('Error fetching applications:', error);

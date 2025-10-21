@@ -5,6 +5,7 @@ export interface IStorage {
   createContactSubmission(submission: InsertContactSubmission): Promise<ContactSubmission>;
   getAllContactSubmissions(): Promise<ContactSubmission[]>;
   createJobApplication(application: InsertJobApplication): Promise<JobApplication>;
+  getAllJobApplications(): Promise<JobApplication[]>;
 }
 
 export class MemStorage implements IStorage {
@@ -41,6 +42,10 @@ export class MemStorage implements IStorage {
     };
     this.jobApplications.set(id, application);
     return application;
+  }
+
+  async getAllJobApplications(): Promise<JobApplication[]> {
+    return Array.from(this.jobApplications.values()).sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime());
   }
 }
 
