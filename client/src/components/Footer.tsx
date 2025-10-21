@@ -1,5 +1,6 @@
 import { Link } from "wouter";
 import { Linkedin, Mail, Instagram } from "lucide-react";
+import logoImage from "@assets/Logo_1760975857851.png";
 
 export function Footer() {
   const footerSections = [
@@ -53,10 +54,13 @@ export function Footer() {
           <div className="lg:col-span-2">
             <Link href="/" data-testid="link-footer-logo">
               <div className="flex items-center gap-3 mb-4 hover-elevate active-elevate-2 rounded-md -ml-3 pl-3 py-2 inline-flex">
-                <div className="w-10 h-10 rounded-md bg-gradient-to-br from-primary to-chart-2 flex items-center justify-center">
-                  <span className="text-xl font-bold text-primary-foreground">
-                    N
-                  </span>
+                <div className="w-10 h-10 rounded-md bg-white flex items-center justify-center shadow-md p-1">
+                  <img
+                    src={logoImage}
+                    alt="NeoVedic Logo"
+                    className="w-full h-full object-contain"
+                    data-testid="img-footer-logo"
+                  />
                 </div>
                 <span className="text-2xl font-bold bg-gradient-to-r from-primary via-chart-2 to-chart-3 bg-clip-text text-transparent">
                   NeoVedic Software
