@@ -13,7 +13,6 @@ import {
 } from "lucide-react";
 import { Link } from "wouter";
 import devkinandanPhoto from "@assets/devkinandan.jpg";
-import manishsahPhoto from "@assets/manishsah.jpg"
 
 export default function Clients() {
   const industries = [
@@ -82,7 +81,7 @@ export default function Clients() {
       content:
         "Our organic traffic increased by 300% in just 6 months thanks to their digital marketing expertise. The ROI has been phenomenal. Highly recommended!",
       rating: 5,
-      photo: manishsahPhoto, // Add client photo URL here
+      photo: "", // Add client photo URL here
     },
   ];
 
