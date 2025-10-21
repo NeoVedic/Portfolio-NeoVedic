@@ -82,7 +82,7 @@ export default function Clients() {
       content:
         "Our organic traffic increased by 300% in just 6 months thanks to their digital marketing expertise. The ROI has been phenomenal. Highly recommended!",
       rating: 5,
-      photo: "", // Add client photo URL here
+      photo: manishPhoto,
     },
   ];
 
