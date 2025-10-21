@@ -12,6 +12,7 @@ import {
   User,
 } from "lucide-react";
 import { Link } from "wouter";
+import devkinandanPhoto from "@assets/devkinandan.jpg";
 
 export default function Clients() {
   const industries = [
@@ -62,7 +63,7 @@ export default function Clients() {
       content:
         "The custom ERP system they built has revolutionized our operations. Everything from inventory to financials is now seamlessly integrated. Best investment we've made.",
       rating: 5,
-      photo: "", // Add client photo URL here
+      photo: devkinandanPhoto,
     },
     {
       name: "Dinesh Sah",
@@ -238,7 +239,9 @@ export default function Clients() {
                         )}
                       </div>
                       <div>
-                        <div className="font-bold text-lg">{testimonial.name}</div>
+                        <div className="font-bold text-lg">
+                          {testimonial.name}
+                        </div>
                         <div className="text-sm text-muted-foreground">
                           {testimonial.role}
                         </div>
