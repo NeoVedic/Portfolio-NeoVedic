@@ -13,6 +13,7 @@ import {
 } from "lucide-react";
 import { Link } from "wouter";
 import devkinandanPhoto from "@assets/devkinandan.jpg";
+import manishPhoto from "@assets/sah.jpg";
 
 export default function Clients() {
   const industries = [
