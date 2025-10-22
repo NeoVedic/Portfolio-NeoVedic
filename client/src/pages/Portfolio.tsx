@@ -13,25 +13,26 @@ import {
   Hospital,
   GraduationCap,
   DollarSign,
-  Building2
+  Building2,
+  UtensilsCrossed
 } from "lucide-react";
 
 export default function Portfolio() {
   const projects = [
     {
       id: 1,
-      title: "Enterprise E-Commerce Platform",
-      description: "A scalable e-commerce solution with real-time inventory management, AI-powered recommendations, and integrated payment processing. Built for high-traffic retail operations.",
-      image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=500&fit=crop",
-      category: "E-Commerce",
+      title: "Bhagwati Caterers",
+      description: "A premium vegetarian catering service offering authentic flavors, customizable menus, and seamless event management. Perfect for weddings, parties, and corporate gatherings.",
+      image: "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=800&h=500&fit=crop",
+      category: "Food & Catering",
       client: {
-        name: "RetailCo International",
-        industry: "Retail & Fashion",
-        location: "New York, USA"
+        name: "Bhagwati Caterers",
+        industry: "Food Catering",
+        location: "Latur, Maharashtra"
       },
-      icon: ShoppingCart,
-      gradient: "from-blue-600 to-cyan-600",
-      liveUrl: "https://demo-ecommerce.example.com",
+      icon: UtensilsCrossed,
+      gradient: "from-orange-600 to-red-600",
+      liveUrl: "https://demo-catering.example.com",
       featured: true
     },
     {
