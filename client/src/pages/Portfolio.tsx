@@ -7,7 +7,6 @@ import {
   ExternalLink, 
   Globe, 
   Sparkles,
-  Code2,
   Rocket,
   TrendingUp,
   ShoppingCart,
@@ -243,80 +242,6 @@ export default function Portfolio() {
                           <Globe className="w-4 h-4 mr-2" />
                           View Live Project
                           <ExternalLink className="w-4 h-4 ml-2" />
-                        </a>
-                      </Button>
-                    </div>
-                  </Card>
-                );
-              })}
-            </div>
-
-            {/* All Projects */}
-            <div className="mb-16">
-              <div className="flex items-center gap-3 mb-4">
-                <Code2 className="w-8 h-8 text-primary" />
-                <h2 className="text-3xl md:text-4xl font-bold" data-testid="text-all-projects-heading">
-                  More Projects
-                </h2>
-              </div>
-              <p className="text-lg text-muted-foreground max-w-3xl">
-                Additional successful implementations across various domains and technologies
-              </p>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {projects.filter(p => !p.featured).map((project) => {
-                const Icon = project.icon;
-                return (
-                  <Card 
-                    key={project.id} 
-                    className="overflow-hidden hover:shadow-xl transition-all duration-300 border-2 hover:border-primary/30 group"
-                    data-testid={`card-project-${project.id}`}
-                  >
-                    <div className="relative h-48 overflow-hidden">
-                      <img 
-                        src={project.image} 
-                        alt={project.title}
-                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-background via-background/60 to-transparent" />
-                      <div className={`absolute top-3 right-3 w-10 h-10 rounded-lg bg-gradient-to-br ${project.gradient} flex items-center justify-center shadow-lg`}>
-                        <Icon className="w-5 h-5 text-white" />
-                      </div>
-                      <Badge className="absolute top-3 left-3 bg-background/90 backdrop-blur-sm text-xs" data-testid={`badge-category-${project.category.toLowerCase()}-${project.id}`}>
-                        {project.category}
-                      </Badge>
-                    </div>
-
-                    <div className="p-6">
-                      <h3 className="text-xl font-bold mb-2 group-hover:text-primary transition-colors" data-testid={`text-project-title-${project.id}`}>
-                        {project.title}
-                      </h3>
-                      <p className="text-sm text-muted-foreground mb-4 leading-relaxed line-clamp-2" data-testid={`text-project-description-${project.id}`}>
-                        {project.description}
-                      </p>
-
-                      {/* Client Info - Compact */}
-                      <div className="mb-4 p-3 rounded-lg bg-muted/50">
-                        <div className="flex items-center gap-1.5 mb-1">
-                          <Building2 className="w-3.5 h-3.5 text-primary" />
-                          <span className="text-xs font-semibold" data-testid={`text-client-name-${project.id}`}>{project.client.name}</span>
-                        </div>
-                        <div className="text-xs text-muted-foreground">
-                          {project.client.industry}
-                        </div>
-                      </div>
-
-                      <Button 
-                        asChild 
-                        size="sm"
-                        className="w-full"
-                        data-testid={`button-view-live-${project.id}`}
-                      >
-                        <a href={project.liveUrl} target="_blank" rel="noopener noreferrer">
-                          <Globe className="w-3 h-3 mr-1.5" />
-                          View Project
-                          <ExternalLink className="w-3 h-3 ml-1.5" />
                         </a>
                       </Button>
                     </div>
