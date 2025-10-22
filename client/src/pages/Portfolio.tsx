@@ -39,15 +39,15 @@ export default function Portfolio() {
     },
     {
       id: 2,
-      title: "E-L",
+      title: "Edu-Learn",
       description:
-        "HIPAA-compliant healthcare platform with patient portal, appointment scheduling, electronic health records, and telemedicine integration.",
+        "An innovative e-learning platform offering interactive courses, live classes, and personalized learning paths. Designed to enhance skill development and make education accessible anytime, anywhere.",
       image:
         "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=800&h=500&fit=crop",
-      category: "Healthcare",
+      category: "Education",
       client: {
-        name: "MediCare Plus",
-        industry: "Healthcare Services",
+        name: "Personalized",
+        industry: "Education",
         location: "California, USA",
       },
       icon: Hospital,
@@ -57,16 +57,16 @@ export default function Portfolio() {
     },
     {
       id: 3,
-      title: "AI-Powered Learning Platform",
+      title: "Edu-Learn",
       description:
-        "Adaptive learning platform with personalized course recommendations, progress tracking, live classes, and certification management using machine learning.",
+        "An innovative e-learning platform offering interactive courses, live classes, and personalized learning paths. Designed to enhance skill development and make education accessible anytime, anywhere.",
       image:
         "https://images.unsplash.com/photo-1501504905252-473c47e087f8?w=800&h=500&fit=crop",
       category: "Education",
       client: {
-        name: "EduTech Global",
+        name: "NeoVedic Software",
         industry: "Education Technology",
-        location: "London, UK",
+        location: "Digital",
       },
       icon: GraduationCap,
       gradient: "from-purple-600 to-pink-600",
