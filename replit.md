@@ -35,11 +35,11 @@ A fashionable, premium company website for NeoVedic, offering IT solutions in We
 - Contact form submission endpoint (`POST /api/contact`)
 - Job application submission endpoint (`POST /api/job-applications`)
 - Blog endpoints (`GET /api/blogs`, `GET /api/blogs/:slug`)
-- MongoDB integration for persistent storage of career applications and blog posts
-- In-memory storage for contact submissions
-- Zod validation for form data
+- MongoDB with Mongoose for all persistent storage (contact forms, job applications, blog posts)
+- Zod validation for form data (no longer using Drizzle/PostgreSQL)
 - Resume file handling (base64 encoded, max 10MB, PDF/DOC/DOCX)
 - Express body size limit increased to 10MB for file uploads
+- Automatic fallback to in-memory storage if MongoDB is not configured
 
 ## Design System
 
@@ -103,6 +103,15 @@ Starts both frontend (Vite) and backend (Express) on the same port.
 - `/hire-resources` - Resource augmentation
 
 ## Recent Changes
+- **2025-10-22**: PostgreSQL to MongoDB Migration
+  - Completely migrated from PostgreSQL/Drizzle to MongoDB/Mongoose
+  - Converted shared schema from Drizzle to plain Zod validation schemas
+  - Removed all PostgreSQL dependencies (@neondatabase/serverless, drizzle-kit, drizzle-orm, drizzle-zod, connect-pg-simple)
+  - Deleted drizzle.config.ts and db:push script
+  - MongoDB now handles all persistent storage (contact forms, job applications, blog posts)
+  - Successfully tested MongoDB connection and data persistence
+  - Application automatically falls back to in-memory storage if MongoDB is unavailable
+
 - **2025-10-15**: Blog Section & Bug Fixes
   - Implemented complete blog section with MongoDB integration
   - Created Blog listing page (`/blog`) displaying all blog posts in grid layout
