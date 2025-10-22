@@ -14,9 +14,7 @@ import {
   Hospital,
   GraduationCap,
   DollarSign,
-  Building2,
-  Users,
-  Calendar
+  Building2
 } from "lucide-react";
 
 export default function Portfolio() {
@@ -31,11 +29,6 @@ export default function Portfolio() {
         name: "RetailCo International",
         industry: "Retail & Fashion",
         location: "New York, USA"
-      },
-      projectInfo: {
-        duration: "8 Months",
-        team: "12 Members",
-        impact: "99.9% Uptime"
       },
       icon: ShoppingCart,
       gradient: "from-blue-600 to-cyan-600",
@@ -53,11 +46,6 @@ export default function Portfolio() {
         industry: "Healthcare Services",
         location: "California, USA"
       },
-      projectInfo: {
-        duration: "12 Months",
-        team: "15 Members",
-        impact: "50K+ Patients"
-      },
       icon: Hospital,
       gradient: "from-emerald-600 to-teal-600",
       liveUrl: "https://demo-healthcare.example.com",
@@ -73,11 +61,6 @@ export default function Portfolio() {
         name: "EduTech Global",
         industry: "Education Technology",
         location: "London, UK"
-      },
-      projectInfo: {
-        duration: "10 Months",
-        team: "18 Members",
-        impact: "200K+ Students"
       },
       icon: GraduationCap,
       gradient: "from-purple-600 to-pink-600",
@@ -95,11 +78,6 @@ export default function Portfolio() {
         industry: "Financial Services",
         location: "Singapore"
       },
-      projectInfo: {
-        duration: "6 Months",
-        team: "10 Members",
-        impact: "Real-time Data"
-      },
       icon: DollarSign,
       gradient: "from-orange-600 to-red-600",
       liveUrl: "https://demo-fintech.example.com",
@@ -116,11 +94,6 @@ export default function Portfolio() {
         industry: "Logistics & Transport",
         location: "Dubai, UAE"
       },
-      projectInfo: {
-        duration: "9 Months",
-        team: "14 Members",
-        impact: "1K+ Vehicles"
-      },
       icon: TrendingUp,
       gradient: "from-indigo-600 to-purple-600",
       liveUrl: "https://demo-fleet.example.com",
@@ -136,11 +109,6 @@ export default function Portfolio() {
         name: "BrandBoost Agency",
         industry: "Digital Marketing",
         location: "Toronto, Canada"
-      },
-      projectInfo: {
-        duration: "7 Months",
-        team: "11 Members",
-        impact: "500+ Brands"
       },
       icon: TrendingUp,
       gradient: "from-pink-600 to-rose-600",
@@ -263,25 +231,6 @@ export default function Portfolio() {
                           <div className="text-sm text-muted-foreground">
                             {project.client.industry} • {project.client.location}
                           </div>
-                        </div>
-                      </div>
-
-                      {/* Project Metrics */}
-                      <div className="grid grid-cols-3 gap-4 mb-6">
-                        <div className="text-center p-3 rounded-lg bg-background border border-border/50">
-                          <Calendar className="w-4 h-4 mx-auto mb-1 text-primary" />
-                          <div className="text-sm font-bold" data-testid={`text-duration-${project.id}`}>{project.projectInfo.duration}</div>
-                          <div className="text-xs text-muted-foreground">Duration</div>
-                        </div>
-                        <div className="text-center p-3 rounded-lg bg-background border border-border/50">
-                          <Users className="w-4 h-4 mx-auto mb-1 text-primary" />
-                          <div className="text-sm font-bold" data-testid={`text-team-${project.id}`}>{project.projectInfo.team}</div>
-                          <div className="text-xs text-muted-foreground">Team Size</div>
-                        </div>
-                        <div className="text-center p-3 rounded-lg bg-background border border-border/50">
-                          <TrendingUp className="w-4 h-4 mx-auto mb-1 text-primary" />
-                          <div className="text-sm font-bold" data-testid={`text-impact-${project.id}`}>{project.projectInfo.impact}</div>
-                          <div className="text-xs text-muted-foreground">Impact</div>
                         </div>
                       </div>
 
