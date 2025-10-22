@@ -5,17 +5,18 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { 
   ExternalLink, 
-  Github, 
   Globe, 
   Sparkles,
   Code2,
   Rocket,
-  Zap,
   TrendingUp,
   ShoppingCart,
   Hospital,
   GraduationCap,
-  DollarSign
+  DollarSign,
+  Building2,
+  Users,
+  Calendar
 } from "lucide-react";
 
 export default function Portfolio() {
@@ -26,16 +27,19 @@ export default function Portfolio() {
       description: "A scalable e-commerce solution with real-time inventory management, AI-powered recommendations, and integrated payment processing. Built for high-traffic retail operations.",
       image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=500&fit=crop",
       category: "E-Commerce",
-      technologies: ["React", "Node.js", "MongoDB", "Stripe", "AWS"],
-      metrics: {
-        users: "100K+",
-        performance: "99.9% Uptime",
-        revenue: "$2M+ GMV"
+      client: {
+        name: "RetailCo International",
+        industry: "Retail & Fashion",
+        location: "New York, USA"
+      },
+      projectInfo: {
+        duration: "8 Months",
+        team: "12 Members",
+        impact: "99.9% Uptime"
       },
       icon: ShoppingCart,
       gradient: "from-blue-600 to-cyan-600",
       liveUrl: "https://demo-ecommerce.example.com",
-      githubUrl: "https://github.com/yourusername/ecommerce-platform",
       featured: true
     },
     {
@@ -44,16 +48,19 @@ export default function Portfolio() {
       description: "HIPAA-compliant healthcare platform with patient portal, appointment scheduling, electronic health records, and telemedicine integration.",
       image: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=800&h=500&fit=crop",
       category: "Healthcare",
-      technologies: ["Vue.js", "Python", "PostgreSQL", "WebRTC", "Docker"],
-      metrics: {
-        users: "50K+",
-        performance: "100% HIPAA",
-        revenue: "30+ Clinics"
+      client: {
+        name: "MediCare Plus",
+        industry: "Healthcare Services",
+        location: "California, USA"
+      },
+      projectInfo: {
+        duration: "12 Months",
+        team: "15 Members",
+        impact: "50K+ Patients"
       },
       icon: Hospital,
       gradient: "from-emerald-600 to-teal-600",
       liveUrl: "https://demo-healthcare.example.com",
-      githubUrl: "https://github.com/yourusername/healthcare-system",
       featured: true
     },
     {
@@ -62,16 +69,19 @@ export default function Portfolio() {
       description: "Adaptive learning platform with personalized course recommendations, progress tracking, live classes, and certification management using machine learning.",
       image: "https://images.unsplash.com/photo-1501504905252-473c47e087f8?w=800&h=500&fit=crop",
       category: "Education",
-      technologies: ["Next.js", "FastAPI", "TensorFlow", "Redis", "Kubernetes"],
-      metrics: {
-        users: "200K+",
-        performance: "95% Completion",
-        revenue: "5K+ Courses"
+      client: {
+        name: "EduTech Global",
+        industry: "Education Technology",
+        location: "London, UK"
+      },
+      projectInfo: {
+        duration: "10 Months",
+        team: "18 Members",
+        impact: "200K+ Students"
       },
       icon: GraduationCap,
       gradient: "from-purple-600 to-pink-600",
       liveUrl: "https://demo-learning.example.com",
-      githubUrl: "https://github.com/yourusername/learning-platform",
       featured: true
     },
     {
@@ -80,16 +90,19 @@ export default function Portfolio() {
       description: "Real-time financial analytics platform with portfolio tracking, market insights, automated trading signals, and comprehensive risk management tools.",
       image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=500&fit=crop",
       category: "Finance",
-      technologies: ["React", "Go", "TimescaleDB", "Grafana", "Kafka"],
-      metrics: {
-        users: "25K+",
-        performance: "Real-time",
-        revenue: "$500M+ AUM"
+      client: {
+        name: "InvestPro Capital",
+        industry: "Financial Services",
+        location: "Singapore"
+      },
+      projectInfo: {
+        duration: "6 Months",
+        team: "10 Members",
+        impact: "Real-time Data"
       },
       icon: DollarSign,
       gradient: "from-orange-600 to-red-600",
       liveUrl: "https://demo-fintech.example.com",
-      githubUrl: "https://github.com/yourusername/fintech-dashboard",
       featured: false
     },
     {
@@ -98,16 +111,19 @@ export default function Portfolio() {
       description: "IoT-based fleet tracking system with GPS monitoring, predictive maintenance, fuel optimization, and driver behavior analytics.",
       image: "https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?w=800&h=500&fit=crop",
       category: "IoT",
-      technologies: ["Angular", "Rust", "InfluxDB", "MQTT", "Azure IoT"],
-      metrics: {
-        users: "10K+",
-        performance: "5M+ Events/day",
-        revenue: "1K+ Vehicles"
+      client: {
+        name: "LogiTrans Solutions",
+        industry: "Logistics & Transport",
+        location: "Dubai, UAE"
       },
-      icon: Zap,
+      projectInfo: {
+        duration: "9 Months",
+        team: "14 Members",
+        impact: "1K+ Vehicles"
+      },
+      icon: TrendingUp,
       gradient: "from-indigo-600 to-purple-600",
       liveUrl: "https://demo-fleet.example.com",
-      githubUrl: "https://github.com/yourusername/fleet-management",
       featured: false
     },
     {
@@ -116,16 +132,19 @@ export default function Portfolio() {
       description: "Comprehensive social media management platform with sentiment analysis, influencer tracking, campaign management, and ROI analytics.",
       image: "https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=800&h=500&fit=crop",
       category: "Marketing",
-      technologies: ["Svelte", "Node.js", "Neo4j", "Elasticsearch", "GCP"],
-      metrics: {
-        users: "75K+",
-        performance: "1B+ Posts",
-        revenue: "500+ Brands"
+      client: {
+        name: "BrandBoost Agency",
+        industry: "Digital Marketing",
+        location: "Toronto, Canada"
+      },
+      projectInfo: {
+        duration: "7 Months",
+        team: "11 Members",
+        impact: "500+ Brands"
       },
       icon: TrendingUp,
       gradient: "from-pink-600 to-rose-600",
       liveUrl: "https://demo-social.example.com",
-      githubUrl: "https://github.com/yourusername/social-analytics",
       featured: false
     }
   ];
@@ -231,45 +250,52 @@ export default function Portfolio() {
                         {project.description}
                       </p>
 
-                      <div className="flex flex-wrap gap-2 mb-6">
-                        {project.technologies.map((tech) => (
-                          <Badge key={tech} variant="secondary" className="text-xs" data-testid={`badge-tech-${tech.toLowerCase()}-${project.id}`}>
-                            {tech}
-                          </Badge>
-                        ))}
-                      </div>
-
-                      <div className="grid grid-cols-3 gap-4 mb-6 p-4 rounded-lg bg-muted/50">
-                        {Object.entries(project.metrics).map(([key, value]) => (
-                          <div key={key} className="text-center">
-                            <div className="text-lg font-bold text-primary" data-testid={`text-metric-${key}-${project.id}`}>{value}</div>
-                            <div className="text-xs text-muted-foreground capitalize">{key}</div>
+                      {/* Client Information */}
+                      <div className="mb-6 p-5 rounded-lg bg-muted/50 border border-border/50">
+                        <div className="flex items-center gap-2 mb-3">
+                          <Building2 className="w-4 h-4 text-primary" />
+                          <span className="font-semibold text-sm text-muted-foreground">Client Information</span>
+                        </div>
+                        <div className="space-y-2">
+                          <div>
+                            <span className="text-sm font-semibold" data-testid={`text-client-name-${project.id}`}>{project.client.name}</span>
                           </div>
-                        ))}
+                          <div className="text-sm text-muted-foreground">
+                            {project.client.industry} • {project.client.location}
+                          </div>
+                        </div>
                       </div>
 
-                      <div className="flex gap-3">
-                        <Button 
-                          asChild 
-                          className="flex-1"
-                          data-testid={`button-view-live-${project.id}`}
-                        >
-                          <a href={project.liveUrl} target="_blank" rel="noopener noreferrer">
-                            <Globe className="w-4 h-4 mr-2" />
-                            View Live
-                            <ExternalLink className="w-4 h-4 ml-2" />
-                          </a>
-                        </Button>
-                        <Button 
-                          asChild 
-                          variant="outline"
-                          data-testid={`button-github-${project.id}`}
-                        >
-                          <a href={project.githubUrl} target="_blank" rel="noopener noreferrer">
-                            <Github className="w-4 h-4" />
-                          </a>
-                        </Button>
+                      {/* Project Metrics */}
+                      <div className="grid grid-cols-3 gap-4 mb-6">
+                        <div className="text-center p-3 rounded-lg bg-background border border-border/50">
+                          <Calendar className="w-4 h-4 mx-auto mb-1 text-primary" />
+                          <div className="text-sm font-bold" data-testid={`text-duration-${project.id}`}>{project.projectInfo.duration}</div>
+                          <div className="text-xs text-muted-foreground">Duration</div>
+                        </div>
+                        <div className="text-center p-3 rounded-lg bg-background border border-border/50">
+                          <Users className="w-4 h-4 mx-auto mb-1 text-primary" />
+                          <div className="text-sm font-bold" data-testid={`text-team-${project.id}`}>{project.projectInfo.team}</div>
+                          <div className="text-xs text-muted-foreground">Team Size</div>
+                        </div>
+                        <div className="text-center p-3 rounded-lg bg-background border border-border/50">
+                          <TrendingUp className="w-4 h-4 mx-auto mb-1 text-primary" />
+                          <div className="text-sm font-bold" data-testid={`text-impact-${project.id}`}>{project.projectInfo.impact}</div>
+                          <div className="text-xs text-muted-foreground">Impact</div>
+                        </div>
                       </div>
+
+                      <Button 
+                        asChild 
+                        className="w-full"
+                        data-testid={`button-view-live-${project.id}`}
+                      >
+                        <a href={project.liveUrl} target="_blank" rel="noopener noreferrer">
+                          <Globe className="w-4 h-4 mr-2" />
+                          View Live Project
+                          <ExternalLink className="w-4 h-4 ml-2" />
+                        </a>
+                      </Button>
                     </div>
                   </Card>
                 );
@@ -317,46 +343,33 @@ export default function Portfolio() {
                       <h3 className="text-xl font-bold mb-2 group-hover:text-primary transition-colors" data-testid={`text-project-title-${project.id}`}>
                         {project.title}
                       </h3>
-                      <p className="text-sm text-muted-foreground mb-4 leading-relaxed line-clamp-3" data-testid={`text-project-description-${project.id}`}>
+                      <p className="text-sm text-muted-foreground mb-4 leading-relaxed line-clamp-2" data-testid={`text-project-description-${project.id}`}>
                         {project.description}
                       </p>
 
-                      <div className="flex flex-wrap gap-1.5 mb-4">
-                        {project.technologies.slice(0, 3).map((tech) => (
-                          <Badge key={tech} variant="secondary" className="text-xs" data-testid={`badge-tech-${tech.toLowerCase()}-${project.id}`}>
-                            {tech}
-                          </Badge>
-                        ))}
-                        {project.technologies.length > 3 && (
-                          <Badge variant="secondary" className="text-xs">
-                            +{project.technologies.length - 3}
-                          </Badge>
-                        )}
+                      {/* Client Info - Compact */}
+                      <div className="mb-4 p-3 rounded-lg bg-muted/50">
+                        <div className="flex items-center gap-1.5 mb-1">
+                          <Building2 className="w-3.5 h-3.5 text-primary" />
+                          <span className="text-xs font-semibold" data-testid={`text-client-name-${project.id}`}>{project.client.name}</span>
+                        </div>
+                        <div className="text-xs text-muted-foreground">
+                          {project.client.industry}
+                        </div>
                       </div>
 
-                      <div className="flex gap-2">
-                        <Button 
-                          asChild 
-                          size="sm"
-                          className="flex-1"
-                          data-testid={`button-view-live-${project.id}`}
-                        >
-                          <a href={project.liveUrl} target="_blank" rel="noopener noreferrer">
-                            <Globe className="w-3 h-3 mr-1.5" />
-                            View Live
-                          </a>
-                        </Button>
-                        <Button 
-                          asChild 
-                          size="sm"
-                          variant="outline"
-                          data-testid={`button-github-${project.id}`}
-                        >
-                          <a href={project.githubUrl} target="_blank" rel="noopener noreferrer">
-                            <Github className="w-3 h-3" />
-                          </a>
-                        </Button>
-                      </div>
+                      <Button 
+                        asChild 
+                        size="sm"
+                        className="w-full"
+                        data-testid={`button-view-live-${project.id}`}
+                      >
+                        <a href={project.liveUrl} target="_blank" rel="noopener noreferrer">
+                          <Globe className="w-3 h-3 mr-1.5" />
+                          View Project
+                          <ExternalLink className="w-3 h-3 ml-1.5" />
+                        </a>
+                      </Button>
                     </div>
                   </Card>
                 );
