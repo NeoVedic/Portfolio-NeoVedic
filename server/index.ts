@@ -1,6 +1,7 @@
 import express, { type Request, Response, NextFunction } from "express";
 import { registerRoutes } from "./routes";
 import { setupVite, serveStatic, log } from "./vite";
+import { connectToMongoDB } from "./db/mongodb";
 import { config, findAvailablePort } from "./config";
 
 const app = express();
@@ -38,13 +39,21 @@ app.use((req, res, next) => {
 });
 
 (async () => {
-  // Log database mode
-  if (config.databaseUrl && !config.enableMockData) {
-    log('✅ PostgreSQL database configured');
+  // Initialize MongoDB connection (optional)
+  if (config.mongoUri && !config.enableMockData) {
+    try {
+      await connectToMongoDB();
+      log('✅ MongoDB initialized successfully');
+    } catch (error) {
+      log('⚠️  MongoDB connection failed - falling back to mock data');
+      console.error('MongoDB error:', error);
+      // Update config to enable mock data as fallback
+      (config as any).enableMockData = true;
+    }
   } else if (config.enableMockData) {
     log('📝 Using mock data mode (configured)');
   } else {
-    log('📝 Using mock data mode (no database configured)');
+    log('📝 Using mock data mode (no MongoDB configured)');
   }
 
   const server = await registerRoutes(app);
@@ -90,7 +99,7 @@ app.use((req, res, next) => {
         port: actualPort,
         host: config.host,
         environment: config.nodeEnv,
-        database: config.databaseUrl ? 'postgresql' : 'mock',
+        database: config.mongoUri ? 'mongodb' : 'mock',
       });
     });
     
