@@ -16,6 +16,7 @@ import {
   Building2,
   UtensilsCrossed,
 } from "lucide-react";
+import bhagwatiLogo from "@assets/logo-bhagwati.png";
 
 export default function Portfolio() {
   const projects = [
@@ -24,8 +25,7 @@ export default function Portfolio() {
       title: "Bhagwati Caterers",
       description:
         "A premium vegetarian catering service offering authentic flavors, customizable menus, and seamless event management. Perfect for weddings, parties, and corporate gatherings.",
-      image:
-        "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=800&h=500&fit=crop",
+      image: bhagwatiLogo,
       category: "Food & Catering",
       client: {
         name: "Bhagwati Caterers",
