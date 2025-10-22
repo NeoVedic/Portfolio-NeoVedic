@@ -1,7 +1,7 @@
 import { type ContactSubmission, type InsertContactSubmission, type JobApplication, type InsertJobApplication } from "@shared/schema";
 import { randomUUID } from "crypto";
 import { config } from "./config";
-import { MongoStorage } from "./db/MongoStorage";
+import { PostgresStorage } from "./db/PostgresStorage";
 
 export interface IStorage {
   createContactSubmission(submission: InsertContactSubmission): Promise<ContactSubmission>;
@@ -57,8 +57,8 @@ function createStorage(): IStorage {
     console.log('📝 Using in-memory storage (mock data mode)');
     return new MemStorage();
   } else {
-    console.log('🗄️  Using MongoDB storage');
-    return new MongoStorage();
+    console.log('🗄️  Using PostgreSQL storage');
+    return new PostgresStorage();
   }
 }
 

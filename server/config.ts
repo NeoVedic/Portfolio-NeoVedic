@@ -9,14 +9,14 @@ console.log('🔍 Environment variables loaded:');
 console.log(`   NODE_ENV: ${process.env.NODE_ENV}`);
 console.log(`   PORT: ${process.env.PORT}`);
 console.log(`   HOST: ${process.env.HOST}`);
-console.log(`   MONGODB_URI: ${process.env.MONGODB_URI ? 'configured' : 'not set'}`);
+console.log(`   DATABASE_URL: ${process.env.DATABASE_URL ? 'configured' : 'not set'}`);
 console.log(`   ENABLE_MOCK_DATA: ${process.env.ENABLE_MOCK_DATA}`);
 
 export interface AppConfig {
   port: number;
   host: string;
   nodeEnv: 'development' | 'production';
-  mongoUri?: string;
+  databaseUrl?: string;
   enableMockData: boolean;
   logLevel: string;
   sessionSecret?: string;
@@ -54,10 +54,10 @@ function validateConfig(): AppConfig {
   const config: AppConfig = {
     port: parseInt(process.env.PORT || '5000', 10),
     // Use 0.0.0.0 for better Windows compatibility and container support
-    host: process.env.HOST || (process.env.NODE_ENV === 'production' ? '0.0.0.0' : 'localhost'),
+    host: process.env.HOST || '0.0.0.0',
     nodeEnv: (process.env.NODE_ENV as 'development' | 'production') || 'development',
-    mongoUri: process.env.MONGODB_URI,
-    enableMockData: process.env.ENABLE_MOCK_DATA === 'true' || !process.env.MONGODB_URI,
+    databaseUrl: process.env.DATABASE_URL,
+    enableMockData: process.env.ENABLE_MOCK_DATA === 'true' || !process.env.DATABASE_URL,
     logLevel: process.env.LOG_LEVEL || 'info',
     sessionSecret: process.env.SESSION_SECRET,
   };
@@ -67,8 +67,8 @@ function validateConfig(): AppConfig {
     throw new Error(`Invalid PORT: ${config.port}. Must be between 1 and 65535.`);
   }
 
-  if (!config.mongoUri && !config.enableMockData) {
-    console.warn('⚠️  No MONGODB_URI provided. Enabling mock data mode.');
+  if (!config.databaseUrl && !config.enableMockData) {
+    console.warn('⚠️  No DATABASE_URL provided. Enabling mock data mode.');
     config.enableMockData = true;
   }
 
@@ -86,5 +86,5 @@ console.log('📋 Configuration loaded:');
 console.log(`   Environment: ${config.nodeEnv}`);
 console.log(`   Port: ${config.port}`);
 console.log(`   Host: ${config.host}`);
-console.log(`   MongoDB: ${config.mongoUri ? '✅ Configured' : '❌ Not configured'}`);
+console.log(`   PostgreSQL: ${config.databaseUrl ? '✅ Configured' : '❌ Not configured'}`);
 console.log(`   Mock Data: ${config.enableMockData ? '✅ Enabled' : '❌ Disabled'}`);
