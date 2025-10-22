@@ -32,7 +32,7 @@ export default function Portfolio() {
       },
       icon: UtensilsCrossed,
       gradient: "from-orange-600 to-red-600",
-      liveUrl: "https://demo-catering.example.com",
+      liveUrl: "https://bhagwati-caterers.neovedicsoft.com",
       featured: true
     },
     {
