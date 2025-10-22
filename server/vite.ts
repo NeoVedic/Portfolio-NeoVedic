@@ -68,18 +68,83 @@ export async function setupVite(app: Express, server: Server) {
 }
 
 export function serveStatic(app: Express) {
-  const distPath = path.resolve(import.meta.dirname, "public");
+  // Try multiple possible build directories
+  const possiblePaths = [
+    path.resolve(import.meta.dirname, "..", "dist", "public"),
+    path.resolve(import.meta.dirname, "..", "dist"),
+    path.resolve(import.meta.dirname, "public"),
+    path.resolve(process.cwd(), "dist", "public"),
+    path.resolve(process.cwd(), "dist"),
+    path.resolve(process.cwd(), "public")
+  ];
 
-  if (!fs.existsSync(distPath)) {
-    throw new Error(
-      `Could not find the build directory: ${distPath}, make sure to build the client first`,
-    );
+  let distPath: string | null = null;
+  
+  for (const possiblePath of possiblePaths) {
+    if (fs.existsSync(possiblePath)) {
+      // Check if this directory contains index.html
+      const indexPath = path.resolve(possiblePath, "index.html");
+      if (fs.existsSync(indexPath)) {
+        distPath = possiblePath;
+        log(`📁 Found build directory: ${distPath}`);
+        break;
+      } else {
+        log(`📁 Directory exists but no index.html: ${possiblePath}`);
+      }
+    }
   }
 
-  app.use(express.static(distPath));
+  if (!distPath) {
+    log(`⚠️  Build directory not found. Tried: ${possiblePaths.join(', ')}`);
+    log(`⚠️  Make sure to run 'npm run build' first`);
+    
+    // Serve a basic error page instead of crashing
+    app.use("*", (_req, res) => {
+      res.status(503).send(`
+        <html>
+          <head><title>Build Required</title></head>
+          <body>
+            <h1>Build Required</h1>
+            <p>The application needs to be built first.</p>
+            <p>Run <code>npm run build</code> and restart the server.</p>
+            <p>Tried paths: ${possiblePaths.join(', ')}</p>
+          </body>
+        </html>
+      `);
+    });
+    return;
+  }
 
-  // fall through to index.html if the file doesn't exist
+  // Serve static files with proper headers
+  app.use(express.static(distPath, {
+    maxAge: '1d', // Cache static assets for 1 day
+    etag: true,
+    lastModified: true,
+    setHeaders: (res, filePath) => {
+      // Set proper MIME types for common files
+      if (filePath.endsWith('.js')) {
+        res.setHeader('Content-Type', 'application/javascript');
+      } else if (filePath.endsWith('.css')) {
+        res.setHeader('Content-Type', 'text/css');
+      } else if (filePath.endsWith('.html')) {
+        res.setHeader('Content-Type', 'text/html');
+      }
+    }
+  }));
+
+  // Health check for static files
+  const indexPath = path.resolve(distPath, "index.html");
+  if (!fs.existsSync(indexPath)) {
+    log(`⚠️  index.html not found at ${indexPath}`);
+  }
+
+  // Fall through to index.html for SPA routing
   app.use("*", (_req, res) => {
-    res.sendFile(path.resolve(distPath, "index.html"));
+    try {
+      res.sendFile(indexPath);
+    } catch (error) {
+      log(`❌ Error serving index.html: ${error}`);
+      res.status(500).send('Internal Server Error');
+    }
   });
 }

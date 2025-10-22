@@ -2,6 +2,7 @@ import express, { type Request, Response, NextFunction } from "express";
 import { registerRoutes } from "./routes";
 import { setupVite, serveStatic, log } from "./vite";
 import { connectToMongoDB } from "./db/mongodb";
+import { config, findAvailablePort } from "./config";
 
 const app = express();
 app.use(express.json({ limit: '10mb' }));
@@ -38,13 +39,21 @@ app.use((req, res, next) => {
 });
 
 (async () => {
-  // Initialize MongoDB connection
-  try {
-    await connectToMongoDB();
-    log('✅ MongoDB initialized successfully');
-  } catch (error) {
-    log('⚠️  MongoDB connection failed - will retry on first request');
-    console.error('MongoDB error:', error);
+  // Initialize MongoDB connection (optional)
+  if (config.mongoUri && !config.enableMockData) {
+    try {
+      await connectToMongoDB();
+      log('✅ MongoDB initialized successfully');
+    } catch (error) {
+      log('⚠️  MongoDB connection failed - falling back to mock data');
+      console.error('MongoDB error:', error);
+      // Update config to enable mock data as fallback
+      (config as any).enableMockData = true;
+    }
+  } else if (config.enableMockData) {
+    log('📝 Using mock data mode (configured)');
+  } else {
+    log('📝 Using mock data mode (no MongoDB configured)');
   }
 
   const server = await registerRoutes(app);
@@ -60,22 +69,95 @@ app.use((req, res, next) => {
   // importantly only setup vite in development and after
   // setting up all the other routes so the catch-all route
   // doesn't interfere with the other routes
-  if (app.get("env") === "development") {
+  if (config.nodeEnv === "development") {
     await setupVite(app, server);
   } else {
     serveStatic(app);
   }
 
-  // ALWAYS serve the app on the port specified in the environment variable PORT
-  // Other ports are firewalled. Default to 5000 if not specified.
-  // this serves both the API and the client.
-  // It is the only port that is not firewalled.
-  const port = parseInt(process.env.PORT || '5000', 10);
-  server.listen({
-    port,
-    host: "0.0.0.0",
-    reusePort: true,
-  }, () => {
-    log(`serving on port ${port}`);
+  // Dynamic port allocation with fallbacks
+  let actualPort = config.port;
+  try {
+    actualPort = await findAvailablePort(config.port);
+    if (actualPort !== config.port) {
+      log(`⚠️  Port ${config.port} unavailable, using port ${actualPort}`);
+    }
+  } catch (error) {
+    log(`❌ Could not find available port starting from ${config.port}`);
+    process.exit(1);
+  }
+
+  // Server startup with error handling
+  server.listen(actualPort, config.host, () => {
+    log(`🚀 Server running on http://${config.host}:${actualPort}`);
+    
+    // Health check endpoint
+    app.get('/health', (_req, res) => {
+      res.status(200).json({
+        status: 'healthy',
+        timestamp: new Date().toISOString(),
+        port: actualPort,
+        host: config.host,
+        environment: config.nodeEnv,
+        database: config.mongoUri ? 'mongodb' : 'mock',
+      });
+    });
+    
+    // Perform startup health checks
+    performStartupHealthChecks(actualPort);
+  });
+
+  // Handle server errors
+  server.on('error', (error: any) => {
+    if (error.code === 'EADDRINUSE') {
+      log(`❌ Port ${actualPort} is already in use`);
+    } else if (error.code === 'EACCES') {
+      log(`❌ Permission denied to bind to port ${actualPort}`);
+    } else {
+      log(`❌ Server error: ${error.message}`);
+    }
+    process.exit(1);
+  });
+
+  // Graceful shutdown
+  process.on('SIGTERM', () => {
+    log('🛑 SIGTERM received, shutting down gracefully');
+    server.close(() => {
+      log('✅ Server closed');
+      process.exit(0);
+    });
+  });
+
+  process.on('SIGINT', () => {
+    log('🛑 SIGINT received, shutting down gracefully');
+    server.close(() => {
+      log('✅ Server closed');
+      process.exit(0);
+    });
   });
 })();
+
+// Startup health checks
+async function performStartupHealthChecks(port: number) {
+  try {
+    // Check if server is responding
+    const response = await fetch(`http://${config.host === '0.0.0.0' ? 'localhost' : config.host}:${port}/health`);
+    if (response.ok) {
+      log('✅ Health check passed - server is responding');
+    } else {
+      log('⚠️  Health check warning - server responded with non-200 status');
+    }
+  } catch (error) {
+    log('⚠️  Health check failed - server may not be fully ready');
+  }
+
+  // Log system information
+  log(`📊 System Info: Node ${process.version}, Platform: ${process.platform}`);
+  log(`📁 Working Directory: ${process.cwd()}`);
+  
+  if (config.nodeEnv === 'development') {
+    log('🔧 Development mode - Hot reload enabled');
+  } else {
+    log('🏭 Production mode - Serving static files');
+  }
+}

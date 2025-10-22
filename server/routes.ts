@@ -2,11 +2,34 @@ import type { Express } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
 import { insertContactSubmissionSchema, insertJobApplicationSchema } from "@shared/schema";
-import { connectToMongoDB } from "./db/mongodb";
+import { connectToMongoDB, getConnectionStatus } from "./db/mongodb";
 import { JobApplication } from "./db/models/JobApplication";
 import { Blog } from "./db/models/Blog";
+import { config } from "./config";
 
 export async function registerRoutes(app: Express): Promise<Server> {
+  // Health check endpoint
+  app.get("/api/health", async (_req, res) => {
+    const { isConnected, attempts } = getConnectionStatus();
+    const status = {
+      status: "ok",
+      timestamp: new Date().toISOString(),
+      database: {
+        type: config.enableMockData ? "mock" : "mongodb",
+        connected: isConnected,
+        connectionAttempts: attempts,
+        mongoUri: config.mongoUri ? "configured" : "not configured"
+      },
+      server: {
+        nodeEnv: config.nodeEnv,
+        port: config.port,
+        host: config.host
+      }
+    };
+    
+    res.json(status);
+  });
+
   app.post("/api/contact", async (req, res) => {
     try {
       const validatedData = insertContactSubmissionSchema.parse(req.body);

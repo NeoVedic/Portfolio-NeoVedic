@@ -1,5 +1,7 @@
 import { type ContactSubmission, type InsertContactSubmission, type JobApplication, type InsertJobApplication } from "@shared/schema";
 import { randomUUID } from "crypto";
+import { config } from "./config";
+import { MongoStorage } from "./db/MongoStorage";
 
 export interface IStorage {
   createContactSubmission(submission: InsertContactSubmission): Promise<ContactSubmission>;
@@ -49,4 +51,15 @@ export class MemStorage implements IStorage {
   }
 }
 
-export const storage = new MemStorage();
+// Create storage instance based on configuration
+function createStorage(): IStorage {
+  if (config.enableMockData) {
+    console.log('📝 Using in-memory storage (mock data mode)');
+    return new MemStorage();
+  } else {
+    console.log('🗄️  Using MongoDB storage');
+    return new MongoStorage();
+  }
+}
+
+export const storage = createStorage();
