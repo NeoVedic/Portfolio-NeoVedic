@@ -23,17 +23,6 @@ interface OrganizationSchema {
   sameAs?: string[];
 }
 
-interface WebsiteSchema {
-  "@context": string;
-  "@type": string;
-  name: string;
-  url: string;
-  potentialAction: {
-    "@type": string;
-    target: string;
-    "query-input": string;
-  };
-}
 
 export function OrganizationStructuredData() {
   useEffect(() => {
@@ -89,16 +78,12 @@ export function OrganizationStructuredData() {
 
 export function WebsiteStructuredData() {
   useEffect(() => {
-    const schema: WebsiteSchema = {
+    const schema = {
       "@context": "https://schema.org",
       "@type": "WebSite",
       name: "NeoVedic Software",
       url: window.location.origin,
-      potentialAction: {
-        "@type": "SearchAction",
-        target: `${window.location.origin}/search?q={search_term_string}`,
-        "query-input": "required name=search_term_string",
-      },
+      description: "Premium IT solutions and software development services",
     };
 
     const script = document.createElement("script");
