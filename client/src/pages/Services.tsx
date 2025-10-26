@@ -4,6 +4,8 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Code2, Server, Cloud, TrendingUp, ArrowRight, Globe } from "lucide-react";
 import { Link } from "wouter";
+import { SEO } from "@/components/SEO";
+import { pagesSEO } from "@/lib/seo-config";
 
 export default function Services() {
   const services = [
@@ -71,6 +73,11 @@ export default function Services() {
 
   return (
     <div className="min-h-screen flex flex-col">
+      <SEO
+        title={pagesSEO.services.title}
+        description={pagesSEO.services.description}
+        keywords={pagesSEO.services.keywords}
+      />
       <Navigation />
       
       <main className="flex-1">

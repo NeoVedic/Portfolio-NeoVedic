@@ -4,6 +4,8 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Code2, Server, Palette, BarChart3, Cloud, Database, ArrowRight, Check, Users } from "lucide-react";
 import { Link } from "wouter";
+import { SEO } from "@/components/SEO";
+import { pagesSEO } from "@/lib/seo-config";
 
 export default function HireResources() {
   const expertise = [
@@ -80,6 +82,11 @@ export default function HireResources() {
 
   return (
     <div className="min-h-screen flex flex-col">
+      <SEO
+        title={pagesSEO.hireResources.title}
+        description={pagesSEO.hireResources.description}
+        keywords={pagesSEO.hireResources.keywords}
+      />
       <Navigation />
       
       <main className="flex-1">

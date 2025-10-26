@@ -3,6 +3,8 @@ import { Footer } from "@/components/Footer";
 import { ContactSection } from "@/components/ContactSection";
 import { Mail, Phone, MapPin, Clock } from "lucide-react";
 import { Card } from "@/components/ui/card";
+import { SEO } from "@/components/SEO";
+import { pagesSEO } from "@/lib/seo-config";
 
 export default function Contact() {
   const contactInfo = [
@@ -34,6 +36,11 @@ export default function Contact() {
 
   return (
     <div className="min-h-screen flex flex-col">
+      <SEO
+        title={pagesSEO.contact.title}
+        description={pagesSEO.contact.description}
+        keywords={pagesSEO.contact.keywords}
+      />
       <Navigation />
       
       <main className="flex-1">

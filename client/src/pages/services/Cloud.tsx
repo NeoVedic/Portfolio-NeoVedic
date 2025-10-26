@@ -4,6 +4,8 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Cloud as CloudIcon, Shield, Zap, DollarSign, ArrowRight, Check } from "lucide-react";
 import { Link } from "wouter";
+import { SEO } from "@/components/SEO";
+import { pagesSEO } from "@/lib/seo-config";
 
 export default function Cloud() {
   const offerings = [
@@ -53,6 +55,11 @@ export default function Cloud() {
 
   return (
     <div className="min-h-screen flex flex-col">
+      <SEO
+        title={pagesSEO.cloud.title}
+        description={pagesSEO.cloud.description}
+        keywords={pagesSEO.cloud.keywords}
+      />
       <Navigation />
       
       <main className="flex-1">

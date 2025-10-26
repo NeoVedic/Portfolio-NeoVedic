@@ -6,6 +6,8 @@ import { Button } from "@/components/ui/button";
 import manishPhoto from "@assets/Manish_photo.jpg";
 import himanshuPhoto from "@assets/himanshu_photo.jpg";
 import prerakPhoto from "@assets/prerak_photo.jpg";
+import { SEO } from "@/components/SEO";
+import { pagesSEO } from "@/lib/seo-config";
 
 export default function Team() {
   const teamMembers = [
@@ -40,6 +42,11 @@ export default function Team() {
 
   return (
     <div className="min-h-screen">
+      <SEO
+        title={pagesSEO.team.title}
+        description={pagesSEO.team.description}
+        keywords={pagesSEO.team.keywords}
+      />
       <Navigation />
       
       <section className="pt-32 pb-20 px-6 bg-gradient-to-br from-primary/10 to-purple-500/10 relative overflow-hidden">

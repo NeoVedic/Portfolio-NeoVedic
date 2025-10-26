@@ -17,6 +17,8 @@ import {
   UtensilsCrossed,
 } from "lucide-react";
 import bhagwatiLogo from "@assets/logo-bhagwati.png";
+import { SEO } from "@/components/SEO";
+import { pagesSEO } from "@/lib/seo-config";
 
 export default function Portfolio() {
   const projects = [
@@ -141,6 +143,11 @@ export default function Portfolio() {
 
   return (
     <div className="min-h-screen flex flex-col">
+      <SEO
+        title={pagesSEO.portfolio.title}
+        description={pagesSEO.portfolio.description}
+        keywords={pagesSEO.portfolio.keywords}
+      />
       <Navigation />
 
       <main className="flex-1">

@@ -4,6 +4,8 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { TrendingUp, Search, Share2, BarChart3, ArrowRight, Check } from "lucide-react";
 import { Link } from "wouter";
+import { SEO } from "@/components/SEO";
+import { pagesSEO } from "@/lib/seo-config";
 
 export default function Marketing() {
   const offerings = [
@@ -53,6 +55,11 @@ export default function Marketing() {
 
   return (
     <div className="min-h-screen flex flex-col">
+      <SEO
+        title={pagesSEO.marketing.title}
+        description={pagesSEO.marketing.description}
+        keywords={pagesSEO.marketing.keywords}
+      />
       <Navigation />
       
       <main className="flex-1">

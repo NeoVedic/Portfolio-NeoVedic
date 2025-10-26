@@ -7,6 +7,8 @@ import { Link } from "wouter";
 import { Calendar, User, ArrowRight, Tag } from "lucide-react";
 import type { Blog } from "@shared/schema";
 import { format } from "date-fns";
+import { SEO } from "@/components/SEO";
+import { pagesSEO } from "@/lib/seo-config";
 
 export default function Blog() {
   const { data: blogs, isLoading } = useQuery<Blog[]>({
@@ -15,6 +17,11 @@ export default function Blog() {
 
   return (
     <div className="min-h-screen flex flex-col">
+      <SEO
+        title={pagesSEO.blog.title}
+        description={pagesSEO.blog.description}
+        keywords={pagesSEO.blog.keywords}
+      />
       <Navigation />
       
       <main className="flex-1">

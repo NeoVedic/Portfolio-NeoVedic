@@ -7,6 +7,8 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { HelpCircle } from "lucide-react";
+import { SEO } from "@/components/SEO";
+import { pagesSEO } from "@/lib/seo-config";
 
 export default function FAQ() {
   const faqCategories = [
@@ -90,6 +92,11 @@ export default function FAQ() {
 
   return (
     <div className="min-h-screen">
+      <SEO
+        title={pagesSEO.faq.title}
+        description={pagesSEO.faq.description}
+        keywords={pagesSEO.faq.keywords}
+      />
       <Navigation />
       
       <section className="pt-32 pb-20 px-6 bg-gradient-to-br from-primary/10 to-purple-500/10 relative overflow-hidden">

@@ -7,6 +7,8 @@ import {
   TrendingUp, DollarSign, Clock, Shield, Zap, Target,
   Rocket, BarChart3, AlertTriangle
 } from "lucide-react";
+import { SEO } from "@/components/SEO";
+import { pagesSEO } from "@/lib/seo-config";
 
 export default function DevOps() {
   const offerings = [
@@ -127,6 +129,11 @@ export default function DevOps() {
 
   return (
     <div className="min-h-screen flex flex-col">
+      <SEO
+        title={pagesSEO.devops.title}
+        description={pagesSEO.devops.description}
+        keywords={pagesSEO.devops.keywords}
+      />
       <Navigation />
       
       <main className="flex-1">

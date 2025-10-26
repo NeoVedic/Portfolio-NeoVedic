@@ -14,6 +14,8 @@ import {
 import { Link } from "wouter";
 import devkinandanPhoto from "@assets/devkinandan.jpg";
 import manishPhoto from "@assets/sah.jpg";
+import { SEO } from "@/components/SEO";
+import { pagesSEO } from "@/lib/seo-config";
 
 export default function Clients() {
   const industries = [
@@ -95,6 +97,11 @@ export default function Clients() {
 
   return (
     <div className="min-h-screen flex flex-col">
+      <SEO
+        title={pagesSEO.clients.title}
+        description={pagesSEO.clients.description}
+        keywords={pagesSEO.clients.keywords}
+      />
       <Navigation />
 
       <main className="flex-1">

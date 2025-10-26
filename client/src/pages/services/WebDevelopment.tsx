@@ -7,6 +7,8 @@ import {
   Globe, Building2, Database, Layers, Briefcase, TrendingUp,
   Package, Users, BarChart3, Workflow
 } from "lucide-react";
+import { SEO } from "@/components/SEO";
+import { pagesSEO } from "@/lib/seo-config";
 
 export default function WebDevelopment() {
   const coreOfferings = [
@@ -127,6 +129,11 @@ export default function WebDevelopment() {
 
   return (
     <div className="min-h-screen flex flex-col">
+      <SEO
+        title={pagesSEO.webDevelopment.title}
+        description={pagesSEO.webDevelopment.description}
+        keywords={pagesSEO.webDevelopment.keywords}
+      />
       <Navigation />
       
       <main className="flex-1">

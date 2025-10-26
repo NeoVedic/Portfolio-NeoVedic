@@ -15,6 +15,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { insertJobApplicationSchema, type InsertJobApplication } from "@shared/schema";
 import { useMutation } from "@tanstack/react-query";
 import { apiRequest } from "@/lib/queryClient";
+import { SEO } from "@/components/SEO";
+import { pagesSEO } from "@/lib/seo-config";
 
 export default function Career() {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -154,6 +156,11 @@ export default function Career() {
 
   return (
     <div className="min-h-screen flex flex-col">
+      <SEO
+        title={pagesSEO.career.title}
+        description={pagesSEO.career.description}
+        keywords={pagesSEO.career.keywords}
+      />
       <Navigation />
       
       <main className="flex-1">

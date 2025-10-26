@@ -7,6 +7,8 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight, Users, Briefcase, Star } from "lucide-react";
 import { Link } from "wouter";
 import { Card } from "@/components/ui/card";
+import { SEO } from "@/components/SEO";
+import { pagesSEO } from "@/lib/seo-config";
 
 export default function Home() {
   const quickLinks = [
@@ -35,6 +37,11 @@ export default function Home() {
 
   return (
     <div className="min-h-screen">
+      <SEO
+        title={pagesSEO.home.title}
+        description={pagesSEO.home.description}
+        keywords={pagesSEO.home.keywords}
+      />
       <Navigation />
       <HeroSection />
       <ServicesSection />
