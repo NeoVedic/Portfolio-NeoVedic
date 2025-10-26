@@ -102,15 +102,15 @@ export function AboutSection() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {technologies.map((tech) => (
               <div key={tech.category} data-testid={`tech-stack-${tech.category.toLowerCase()}`}>
-                <h4 className="text-lg font-semibold mb-4 text-primary">{tech.category}</h4>
+                <h4 className="text-xl md:text-2xl font-semibold mb-4 text-primary">{tech.category}</h4>
                 <ul className="space-y-3">
                   {tech.tools.map((tool) => {
                     const techIcon = techIcons[tool];
                     if (!techIcon) return null;
                     const Icon = techIcon.icon;
                     return (
-                      <li key={tool} className="flex items-center gap-3 text-sm text-muted-foreground">
-                        <Icon className="w-5 h-5" style={{ color: techIcon.color }} />
+                      <li key={tool} className="flex items-center gap-3 text-base md:text-lg text-muted-foreground">
+                        <Icon className="w-6 h-6 md:w-7 md:h-7" style={{ color: techIcon.color }} />
                         {tool}
                       </li>
                     );
