@@ -15,8 +15,10 @@ import {
   DollarSign,
   Building2,
   UtensilsCrossed,
+  School,
 } from "lucide-react";
 import bhagwatiLogo from "@assets/logo-bhagwati.png";
+import ecommerceImage from "@assets/generated_images/Ecommerce_platform_interface_design_21fc7049.png";
 import { SEO } from "@/components/SEO";
 import { pagesSEO } from "@/lib/seo-config";
 
@@ -41,38 +43,37 @@ export default function Portfolio() {
     },
     {
       id: 2,
-      title: "Edu-Learn",
-      description:
-        "An innovative e-learning platform offering interactive courses, live classes, and personalized learning paths. Designed to enhance skill development and make education accessible anytime, anywhere.",
-      image:
-        "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=800&h=500&fit=crop",
-      category: "Education",
-      client: {
-        name: "Personalized",
-        industry: "Education",
-        location: "California, USA",
-      },
-      icon: Hospital,
-      gradient: "from-emerald-600 to-teal-600",
-      liveUrl: "https://demo-healthcare.example.com",
-      featured: true,
-    },
-    {
-      id: 3,
-      title: "Edu-Learn",
+      title: "Edu-Platform",
       description:
         "An innovative e-learning platform offering interactive courses, live classes, and personalized learning paths. Designed to enhance skill development and make education accessible anytime, anywhere.",
       image:
         "https://images.unsplash.com/photo-1501504905252-473c47e087f8?w=800&h=500&fit=crop",
       category: "Education",
       client: {
-        name: "NeoVedic Software",
-        industry: "Education Technology",
+        name: "Personalized",
+        industry: "Education",
         location: "Digital",
       },
       icon: GraduationCap,
+      gradient: "from-emerald-600 to-teal-600",
+      liveUrl: "https://demo-healthcare.example.com",
+      featured: true,
+    },
+    {
+      id: 3,
+      title: "Ecommerce",
+      description:
+        "A comprehensive e-commerce platform with seamless product management, secure payment gateways, and advanced analytics. Built to empower businesses to sell online and scale effortlessly.",
+      image: ecommerceImage,
+      category: "E-Commerce",
+      client: {
+        name: "NeoVedic Software",
+        industry: "Ecommerce",
+        location: "Digital",
+      },
+      icon: ShoppingCart,
       gradient: "from-purple-600 to-pink-600",
-      liveUrl: "https://demo-learning.example.com",
+      liveUrl: "https://demo-ecommerce.example.com",
       featured: true,
     },
     {
