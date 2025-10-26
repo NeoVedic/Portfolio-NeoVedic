@@ -82,4 +82,14 @@ export const pagesSEO = {
     description: "Data-driven digital marketing services to grow your business. Expert SEO, PPC advertising, social media marketing, content strategy, and analytics to maximize ROI.",
     keywords: "digital marketing, SEO services, PPC advertising, social media marketing, content marketing, Google Ads, Facebook Ads, marketing agency",
   },
+  privacyPolicy: {
+    title: "Privacy Policy - How We Protect Your Data",
+    description: "Learn how NeoVedic Software collects, uses, and protects your personal information. Read our comprehensive privacy policy and understand your data rights.",
+    keywords: "privacy policy, data protection, GDPR compliance, personal information, data security, privacy rights, data collection",
+  },
+  termsOfService: {
+    title: "Terms of Service - Legal Agreement & User Guidelines",
+    description: "Read NeoVedic Software's Terms of Service to understand the rules, guidelines, and legal agreements for using our services and website.",
+    keywords: "terms of service, terms and conditions, user agreement, service terms, legal terms, usage policy, service agreement",
+  },
 };

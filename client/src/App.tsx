@@ -18,6 +18,8 @@ import WebDevelopment from "@/pages/services/WebDevelopment";
 import DevOps from "@/pages/services/DevOps";
 import Cloud from "@/pages/services/Cloud";
 import Marketing from "@/pages/services/Marketing";
+import PrivacyPolicy from "@/pages/PrivacyPolicy";
+import TermsOfService from "@/pages/TermsOfService";
 import NotFound from "@/pages/not-found";
 
 function Router() {
@@ -38,6 +40,8 @@ function Router() {
       <Route path="/services/devops" component={DevOps} />
       <Route path="/services/cloud" component={Cloud} />
       <Route path="/services/marketing" component={Marketing} />
+      <Route path="/privacy-policy" component={PrivacyPolicy} />
+      <Route path="/terms-of-service" component={TermsOfService} />
       <Route component={NotFound} />
     </Switch>
   );

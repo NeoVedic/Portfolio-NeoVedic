@@ -50,13 +50,13 @@ export default function Portfolio() {
         "https://images.unsplash.com/photo-1501504905252-473c47e087f8?w=800&h=500&fit=crop",
       category: "Education",
       client: {
-        name: "Personalized",
+        name: "NeoVedic Software",
         industry: "Education",
         location: "Digital",
       },
       icon: GraduationCap,
       gradient: "from-emerald-600 to-teal-600",
-      liveUrl: "https://demo-healthcare.example.com",
+      liveUrl: "https://edu-platform.neovedicsoft.com",
       featured: true,
     },
     {
@@ -73,7 +73,7 @@ export default function Portfolio() {
       },
       icon: ShoppingCart,
       gradient: "from-purple-600 to-pink-600",
-      liveUrl: "https://demo-ecommerce.example.com",
+      liveUrl: "https://ecommerce.neovedicsoft.com",
       featured: true,
     },
     {

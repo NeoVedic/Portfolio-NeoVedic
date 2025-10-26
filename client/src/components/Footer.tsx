@@ -27,8 +27,8 @@ export function Footer() {
       links: [
         { label: "Contact Us", href: "/contact" },
         { label: "FAQ", href: "/faq" },
-        { label: "Privacy Policy", href: "#" },
-        { label: "Terms of Service", href: "#" },
+        { label: "Privacy Policy", href: "/privacy-policy" },
+        { label: "Terms of Service", href: "/terms-of-service" },
       ],
     },
   ];
@@ -127,20 +127,22 @@ export function Footer() {
             reserved.
           </p>
           <div className="flex items-center gap-6">
-            <a
-              href="#"
-              className="text-sm text-muted-foreground hover:text-foreground transition-colors"
-              data-testid="link-footer-privacy"
-            >
-              Privacy Policy
-            </a>
-            <a
-              href="#"
-              className="text-sm text-muted-foreground hover:text-foreground transition-colors"
-              data-testid="link-footer-terms"
-            >
-              Terms of Service
-            </a>
+            <Link href="/privacy-policy">
+              <span
+                className="text-sm text-muted-foreground hover:text-foreground transition-colors cursor-pointer"
+                data-testid="link-footer-privacy"
+              >
+                Privacy Policy
+              </span>
+            </Link>
+            <Link href="/terms-of-service">
+              <span
+                className="text-sm text-muted-foreground hover:text-foreground transition-colors cursor-pointer"
+                data-testid="link-footer-terms"
+              >
+                Terms of Service
+              </span>
+            </Link>
           </div>
         </div>
       </div>
