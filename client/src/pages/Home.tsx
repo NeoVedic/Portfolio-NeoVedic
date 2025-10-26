@@ -9,6 +9,7 @@ import { Link } from "wouter";
 import { Card } from "@/components/ui/card";
 import { SEO } from "@/components/SEO";
 import { pagesSEO } from "@/lib/seo-config";
+import { OrganizationStructuredData, WebsiteStructuredData } from "@/components/StructuredData";
 
 export default function Home() {
   const quickLinks = [
@@ -42,6 +43,8 @@ export default function Home() {
         description={pagesSEO.home.description}
         keywords={pagesSEO.home.keywords}
       />
+      <OrganizationStructuredData />
+      <WebsiteStructuredData />
       <Navigation />
       <HeroSection />
       <ServicesSection />
