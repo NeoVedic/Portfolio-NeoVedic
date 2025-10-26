@@ -28,9 +28,13 @@ export function Navigation() {
     { href: "/", label: "Home" },
     { href: "/portfolio", label: "Portfolio" },
     { href: "/team", label: "Team" },
+  ];
+
+  const navLinksAfterServices = [
     { href: "/blog", label: "Blog" },
     { href: "/career", label: "Career" },
     { href: "/faq", label: "FAQ" },
+    { href: "/clients", label: "Our Clients" },
   ];
 
   const serviceLinks = [
@@ -143,6 +147,18 @@ export function Navigation() {
                 </div>
               )}
             </div>
+
+            {navLinksAfterServices.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                data-testid={`link-nav-${link.label.toLowerCase().replace(/\s/g, "-")}`}
+              >
+                <span className="text-base font-semibold text-muted-foreground hover:text-foreground transition-colors cursor-pointer">
+                  {link.label}
+                </span>
+              </Link>
+            ))}
           </nav>
 
           <div className="hidden lg:flex items-center gap-4">
@@ -184,7 +200,7 @@ export function Navigation() {
                 </span>
               </Link>
             ))}
-            <div className="pt-4 border-t border-border">
+            <div className="pt-2 pb-4 border-t border-border">
               <Link href="/services">
                 <p className="text-sm font-bold text-foreground mb-3">
                   Services
@@ -207,6 +223,17 @@ export function Navigation() {
                 </Link>
               ))}
             </div>
+            {navLinksAfterServices.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                data-testid={`link-mobile-${link.label.toLowerCase().replace(/\s/g, "-")}`}
+              >
+                <span className="text-base font-semibold text-muted-foreground hover:text-foreground transition-colors py-2 block">
+                  {link.label}
+                </span>
+              </Link>
+            ))}
             <Button
               size="lg"
               className="w-full mt-2 font-semibold"
