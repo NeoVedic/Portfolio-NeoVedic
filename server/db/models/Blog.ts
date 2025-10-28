@@ -9,7 +9,10 @@ export interface IBlog extends Document {
   imageUrl: string;
   category: string;
   tags?: string[];
-  publishedAt: Date;
+  metaTitle?: string;
+  metaDescription?: string;
+  isPublished: boolean;
+  publishedAt?: Date;
   createdAt: Date;
 }
 
@@ -51,11 +54,23 @@ const blogSchema = new Schema<IBlog>({
   },
   tags: {
     type: [String],
-    default: [],
+    required: false,
+  },
+  metaTitle: {
+    type: String,
+    required: false,
+  },
+  metaDescription: {
+    type: String,
+    required: false,
+  },
+  isPublished: {
+    type: Boolean,
+    default: false,
   },
   publishedAt: {
     type: Date,
-    default: Date.now,
+    required: false,
   },
   createdAt: {
     type: Date,
@@ -63,7 +78,9 @@ const blogSchema = new Schema<IBlog>({
   },
 });
 
+blogSchema.index({ slug: 1 }, { unique: true });
 blogSchema.index({ category: 1 });
-blogSchema.index({ publishedAt: -1 });
+blogSchema.index({ isPublished: 1, publishedAt: -1 });
+blogSchema.index({ createdAt: -1 });
 
 export const Blog = mongoose.model<IBlog>('Blog', blogSchema);

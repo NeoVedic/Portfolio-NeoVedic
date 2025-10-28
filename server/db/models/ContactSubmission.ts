@@ -5,6 +5,7 @@ export interface IContactSubmission extends Document {
   email: string;
   service: string;
   message: string;
+  isRead: boolean;
   createdAt: Date;
 }
 
@@ -29,6 +30,10 @@ const contactSubmissionSchema = new Schema<IContactSubmission>({
     type: String,
     required: true,
     trim: true,
+  },
+  isRead: {
+    type: Boolean,
+    default: false,
   },
   createdAt: {
     type: Date,
