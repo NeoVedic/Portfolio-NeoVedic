@@ -2,74 +2,37 @@ import { Navigation } from "@/components/Navigation";
 import { Footer } from "@/components/Footer";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Code2, Server, Cloud, TrendingUp, ArrowRight, Globe } from "lucide-react";
-import { Link } from "wouter";
+import { Globe, ArrowRight } from "lucide-react";
 import { SEO } from "@/components/SEO";
 import { pagesSEO } from "@/lib/seo-config";
+import { useQuery } from "@tanstack/react-query";
+import type { Service as ServiceType } from "@shared/schema";
+
+function getServiceDetailUrl(title: string): string | null {
+  const titleLower = title.toLowerCase();
+  if (titleLower.includes('web') || titleLower.includes('development')) {
+    return '/services/web-development';
+  }
+  if (titleLower.includes('devops')) {
+    return '/services/devops';
+  }
+  if (titleLower.includes('cloud')) {
+    return '/services/cloud';
+  }
+  if (titleLower.includes('marketing')) {
+    return '/services/marketing';
+  }
+  return null;
+}
 
 export default function Services() {
-  const services = [
-    {
-      icon: Code2,
-      title: "Web Development",
-      description: "Enterprise-grade web applications, corporate websites, and custom ERP systems built with cutting-edge technologies.",
-      features: [
-        "Corporate Websites & Portals",
-        "Custom ERP Systems", 
-        "E-commerce Platforms",
-        "Progressive Web Apps"
-      ],
-      gradient: "from-blue-600 to-cyan-600",
-      href: "/services/web-development",
-      testId: "card-service-web-development",
-      highlight: "ERP & Website Solutions"
-    },
-    {
-      icon: Server,
-      title: "DevOps Services",
-      description: "Accelerate delivery and reduce costs with enterprise DevOps automation, CI/CD pipelines, and infrastructure optimization.",
-      features: [
-        "80% Faster Deployments",
-        "99.99% Uptime Reliability", 
-        "Automated CI/CD Pipelines",
-        "Infrastructure as Code"
-      ],
-      gradient: "from-purple-600 to-pink-600",
-      href: "/services/devops",
-      testId: "card-service-devops",
-      highlight: "Business Critical"
-    },
-    {
-      icon: Cloud,
-      title: "Cloud Infrastructure",
-      description: "Enterprise cloud solutions on AWS, Azure, and GCP with auto-scaling, security, and cost optimization.",
-      features: [
-        "Multi-Cloud Architecture",
-        "Security & Compliance", 
-        "Auto-Scaling Solutions",
-        "60% Cost Reduction"
-      ],
-      gradient: "from-emerald-600 to-teal-600",
-      href: "/services/cloud",
-      testId: "card-service-cloud",
-      highlight: "Enterprise Scale"
-    },
-    {
-      icon: TrendingUp,
-      title: "Digital Marketing",
-      description: "Data-driven marketing strategies that generate leads, increase conversions, and maximize ROI.",
-      features: [
-        "SEO & SEM Optimization",
-        "Content Marketing Strategy", 
-        "Social Media Growth",
-        "Analytics & ROI Tracking"
-      ],
-      gradient: "from-orange-600 to-red-600",
-      href: "/services/marketing",
-      testId: "card-service-marketing",
-      highlight: "Growth Focused"
-    },
-  ];
+  const { data: services, isLoading } = useQuery<ServiceType[]>({
+    queryKey: ["/api/services"],
+  });
+
+  const sortedServices = services
+    ? [...services].sort((a, b) => a.order - b.order)
+    : [];
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -116,69 +79,133 @@ export default function Services() {
 
         <section className="py-24 md:py-40 bg-muted/20">
           <div className="max-w-7xl mx-auto px-6">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10">
-              {services.map((service) => {
-                const Icon = service.icon;
-                return (
-                  <Card 
-                    key={service.title} 
-                    className="relative p-10 hover-elevate active-elevate-2 transition-all duration-500 group overflow-hidden border-2 hover:border-primary/30"
-                    data-testid={service.testId}
-                  >
-                    <div className="absolute top-0 right-0 px-4 py-1.5 bg-gradient-to-r from-primary/20 to-purple-500/20 rounded-bl-lg">
-                      <span className="text-xs font-bold text-primary">{service.highlight}</span>
+            {isLoading ? (
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10">
+                {[...Array(4)].map((_, i) => (
+                  <Card key={i} className="p-10 animate-pulse">
+                    <div className="space-y-4">
+                      <div className="w-12 h-12 bg-muted rounded-xl" />
+                      <div className="h-6 bg-muted rounded w-3/4" />
+                      <div className="h-4 bg-muted rounded w-full" />
+                      <div className="h-4 bg-muted rounded w-full" />
+                      <div className="space-y-2">
+                        <div className="h-3 bg-muted rounded w-full" />
+                        <div className="h-3 bg-muted rounded w-full" />
+                        <div className="h-3 bg-muted rounded w-2/3" />
+                      </div>
+                      <div className="h-10 bg-muted rounded w-full" />
                     </div>
-
-                    <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${service.gradient} flex items-center justify-center mb-8 group-hover:scale-110 transition-transform duration-500`}>
-                      <Icon className="w-8 h-8 text-white" />
-                    </div>
-
-                    <h3 className="text-3xl font-bold mb-4 group-hover:text-primary transition-colors">{service.title}</h3>
-                    <p className="text-muted-foreground mb-8 text-lg leading-relaxed">{service.description}</p>
-
-                    <ul className="space-y-3 mb-8">
-                      {service.features.map((feature) => (
-                        <li key={feature} className="flex items-center gap-3 text-base">
-                          <div className="w-2 h-2 rounded-full bg-gradient-to-r from-primary to-purple-600" />
-                          <span className="text-foreground font-medium">{feature}</span>
-                        </li>
-                      ))}
-                    </ul>
-
-                    <Button variant="ghost" asChild className="group/btn p-0 h-auto text-lg font-semibold">
-                      <Link href={service.href}>
-                        <span className="flex items-center gap-2 text-primary">
-                          Learn More
-                          <ArrowRight className="w-5 h-5 group-hover/btn:translate-x-2 transition-transform" />
-                        </span>
-                      </Link>
-                    </Button>
                   </Card>
-                );
-              })}
-            </div>
+                ))}
+              </div>
+            ) : sortedServices.length > 0 ? (
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10">
+                {sortedServices.map((service, index) => {
+                  const gradients = [
+                    "from-blue-600 to-cyan-600",
+                    "from-purple-600 to-pink-600",
+                    "from-emerald-600 to-teal-600",
+                    "from-orange-600 to-red-600",
+                  ];
+                  const gradient = gradients[index % gradients.length];
+
+                  return (
+                    <Card 
+                      key={service.id} 
+                      className="relative p-10 hover-elevate active-elevate-2 transition-all duration-500 group overflow-hidden border-2 hover:border-primary/30"
+                      data-testid={`card-service-${service.id}`}
+                    >
+                      <div className={`absolute -right-16 -top-16 w-48 h-48 bg-gradient-to-br ${gradient} opacity-10 rounded-full blur-2xl group-hover:opacity-20 transition-opacity`} />
+                      
+                      <div className="relative">
+                        <div className="mb-6">
+                          <div className={`inline-flex items-center justify-center w-14 h-14 rounded-xl bg-gradient-to-br ${gradient} shadow-lg shadow-primary/20 group-hover:scale-110 transition-transform`}>
+                            <img 
+                              src={service.iconUrl} 
+                              alt={service.title}
+                              className="w-8 h-8"
+                              onError={(e) => {
+                                (e.target as HTMLImageElement).style.display = 'none';
+                              }}
+                            />
+                          </div>
+                        </div>
+
+                        <h3 className="text-3xl font-bold mb-4 group-hover:text-primary transition-colors" data-testid={`text-service-title-${service.id}`}>
+                          {service.title}
+                        </h3>
+
+                        <p className="text-muted-foreground leading-relaxed mb-6" data-testid={`text-service-description-${service.id}`}>
+                          {service.shortDescription}
+                        </p>
+
+                        {service.features && service.features.length > 0 && (
+                          <ul className="space-y-3 mb-8">
+                            {service.features.slice(0, 4).map((feature, idx) => (
+                              <li key={idx} className="flex items-start gap-3 text-sm">
+                                <div className={`mt-1 w-1.5 h-1.5 rounded-full bg-gradient-to-br ${gradient} flex-shrink-0`} />
+                                <span className="text-muted-foreground leading-relaxed">{feature}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        )}
+
+                        {getServiceDetailUrl(service.title) ? (
+                          <Button 
+                            variant="outline" 
+                            className="w-full group/btn hover:bg-primary hover:text-primary-foreground"
+                            data-testid={`button-learn-more-${service.id}`}
+                            asChild
+                          >
+                            <a href={getServiceDetailUrl(service.title) || '#'}>
+                              Learn More
+                              <ArrowRight className="w-4 h-4 ml-2 group-hover/btn:translate-x-1 transition-transform" />
+                            </a>
+                          </Button>
+                        ) : (
+                          <Button 
+                            variant="outline" 
+                            className="w-full group/btn hover:bg-primary hover:text-primary-foreground"
+                            data-testid={`button-learn-more-${service.id}`}
+                            asChild
+                          >
+                            <a href="/contact">
+                              Contact Us
+                              <ArrowRight className="w-4 h-4 ml-2 group-hover/btn:translate-x-1 transition-transform" />
+                            </a>
+                          </Button>
+                        )}
+                      </div>
+                    </Card>
+                  );
+                })}
+              </div>
+            ) : (
+              <div className="text-center py-20">
+                <Globe className="w-16 h-16 text-muted-foreground mx-auto mb-4" />
+                <h3 className="text-2xl font-bold mb-2">No Services Available</h3>
+                <p className="text-muted-foreground">
+                  Check back soon for our service offerings!
+                </p>
+              </div>
+            )}
           </div>
         </section>
 
-        <section className="py-24 md:py-40 bg-gradient-to-br from-primary/10 to-purple-500/10">
+        <section className="py-24 md:py-32 bg-gradient-to-br from-primary/10 to-purple-500/10">
           <div className="max-w-4xl mx-auto px-6 text-center">
-            <h2 className="text-4xl md:text-6xl font-bold mb-8">Ready to Get Started?</h2>
-            <p className="text-xl md:text-2xl text-muted-foreground mb-12 leading-relaxed">
-              Let's discuss how our services can transform your business and accelerate growth.
+            <h2 className="text-4xl md:text-5xl font-bold mb-6">
+              Let's Build Something Great Together
+            </h2>
+            <p className="text-xl text-muted-foreground mb-10 leading-relaxed">
+              Ready to transform your business with cutting-edge technology? Contact us today for a free consultation.
             </p>
-            <div className="flex flex-col sm:flex-row gap-5 justify-center">
-              <Button size="lg" asChild className="px-8 py-6 text-lg">
-                <Link href="/contact">
-                  <span className="flex items-center gap-2">
-                    Contact Us
-                    <ArrowRight className="w-5 h-5" />
-                  </span>
-                </Link>
-              </Button>
-              <Button size="lg" variant="outline" asChild className="px-8 py-6 text-lg">
-                <Link href="/hire-resources">Hire Our Experts</Link>
-              </Button>
-            </div>
+            <Button size="lg" asChild className="px-10 py-6 text-lg">
+              <a href="/contact">
+                Get Started
+                <ArrowRight className="w-5 h-5 ml-2" />
+              </a>
+            </Button>
           </div>
         </section>
       </main>

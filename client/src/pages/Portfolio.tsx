@@ -8,139 +8,23 @@ import {
   Globe,
   Sparkles,
   Rocket,
-  TrendingUp,
-  ShoppingCart,
-  Hospital,
-  GraduationCap,
-  DollarSign,
-  Building2,
-  UtensilsCrossed,
-  School,
+  Briefcase,
 } from "lucide-react";
-import bhagwatiLogo from "@assets/logo-bhagwati.png";
-import ecommerceImage from "@assets/generated_images/Ecommerce_platform_interface_design_21fc7049.png";
 import { SEO } from "@/components/SEO";
 import { pagesSEO } from "@/lib/seo-config";
+import { useQuery } from "@tanstack/react-query";
+import type { Portfolio as PortfolioType } from "@shared/schema";
 
 export default function Portfolio() {
-  const projects = [
-    {
-      id: 1,
-      title: "Bhagwati Caterers",
-      description:
-        "A premium vegetarian catering service offering authentic flavors, customizable menus, and seamless event management. Perfect for weddings, parties, and corporate gatherings.",
-      image: bhagwatiLogo,
-      category: "Food & Catering",
-      client: {
-        name: "Bhagwati Caterers",
-        industry: "Food Catering",
-        location: "Latur, Maharashtra",
-      },
-      icon: UtensilsCrossed,
-      gradient: "from-orange-600 to-red-600",
-      liveUrl: "https://bhagwati-caterers.neovedicsoft.com",
-      featured: true,
-    },
-    {
-      id: 2,
-      title: "Edu-Platform",
-      description:
-        "An innovative e-learning platform offering interactive courses, live classes, and personalized learning paths. Designed to enhance skill development and make education accessible anytime, anywhere.",
-      image:
-        "https://images.unsplash.com/photo-1501504905252-473c47e087f8?w=800&h=500&fit=crop",
-      category: "Education",
-      client: {
-        name: "NeoVedic Software",
-        industry: "Education",
-        location: "Digital",
-      },
-      icon: GraduationCap,
-      gradient: "from-emerald-600 to-teal-600",
-      liveUrl: "https://edu-platform.neovedicsoft.com",
-      featured: true,
-    },
-    {
-      id: 3,
-      title: "Ecommerce",
-      description:
-        "A comprehensive e-commerce platform with seamless product management, secure payment gateways, and advanced analytics. Built to empower businesses to sell online and scale effortlessly.",
-      image: ecommerceImage,
-      category: "E-Commerce",
-      client: {
-        name: "NeoVedic Software",
-        industry: "Ecommerce",
-        location: "Digital",
-      },
-      icon: ShoppingCart,
-      gradient: "from-purple-600 to-pink-600",
-      liveUrl: "https://ecommerce.neovedicsoft.com",
-      featured: true,
-    },
-    {
-      id: 4,
-      title: "FinTech Analytics Dashboard",
-      description:
-        "Real-time financial analytics platform with portfolio tracking, market insights, automated trading signals, and comprehensive risk management tools.",
-      image:
-        "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=500&fit=crop",
-      category: "Finance",
-      client: {
-        name: "InvestPro Capital",
-        industry: "Financial Services",
-        location: "Singapore",
-      },
-      icon: DollarSign,
-      gradient: "from-orange-600 to-red-600",
-      liveUrl: "https://demo-fintech.example.com",
-      featured: false,
-    },
-    {
-      id: 5,
-      title: "Smart IoT Fleet Management",
-      description:
-        "IoT-based fleet tracking system with GPS monitoring, predictive maintenance, fuel optimization, and driver behavior analytics.",
-      image:
-        "https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?w=800&h=500&fit=crop",
-      category: "IoT",
-      client: {
-        name: "LogiTrans Solutions",
-        industry: "Logistics & Transport",
-        location: "Dubai, UAE",
-      },
-      icon: TrendingUp,
-      gradient: "from-indigo-600 to-purple-600",
-      liveUrl: "https://demo-fleet.example.com",
-      featured: false,
-    },
-    {
-      id: 6,
-      title: "Social Media Analytics Suite",
-      description:
-        "Comprehensive social media management platform with sentiment analysis, influencer tracking, campaign management, and ROI analytics.",
-      image:
-        "https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=800&h=500&fit=crop",
-      category: "Marketing",
-      client: {
-        name: "BrandBoost Agency",
-        industry: "Digital Marketing",
-        location: "Toronto, Canada",
-      },
-      icon: TrendingUp,
-      gradient: "from-pink-600 to-rose-600",
-      liveUrl: "https://demo-social.example.com",
-      featured: false,
-    },
-  ];
+  const { data: projects, isLoading } = useQuery<PortfolioType[]>({
+    queryKey: ["/api/portfolio"],
+  });
 
-  const categories = [
-    "All",
-    "E-Commerce",
-    "Healthcare",
-    "Education",
-    "Finance",
-    "IoT",
-    "Marketing",
-  ];
+  const categories = ["All"];
+  if (projects) {
+    const uniqueCategories = [...new Set(projects.map(p => p.category))];
+    categories.push(...uniqueCategories);
+  }
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -152,7 +36,6 @@ export default function Portfolio() {
       <Navigation />
 
       <main className="flex-1">
-        {/* Hero Section */}
         <section className="pt-32 pb-20 md:pt-40 md:pb-32 relative overflow-hidden">
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-primary/20 via-background to-background" />
 
@@ -209,7 +92,6 @@ export default function Portfolio() {
           </div>
         </section>
 
-        {/* Featured Projects */}
         <section className="py-20 bg-muted/20">
           <div className="max-w-7xl mx-auto px-6">
             <div className="mb-16">
@@ -219,91 +101,91 @@ export default function Portfolio() {
                   className="text-3xl md:text-4xl font-bold"
                   data-testid="text-featured-heading"
                 >
-                  Featured Projects
+                  Our Projects
                 </h2>
               </div>
               <p className="text-lg text-muted-foreground max-w-3xl">
-                Our most impactful and innovative solutions that have delivered
+                Innovative solutions that have delivered
                 exceptional results for our clients
               </p>
             </div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-20">
-              {projects
-                .filter((p) => p.featured)
-                .map((project) => {
-                  const Icon = project.icon;
-                  return (
-                    <Card
-                      key={project.id}
-                      className="overflow-hidden hover:shadow-2xl transition-all duration-500 border-2 hover:border-primary/30 group"
-                      data-testid={`card-project-${project.id}`}
-                    >
-                      <div className="relative h-64 overflow-hidden">
-                        <img
-                          src={project.image}
-                          alt={project.title}
-                          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-t from-background via-background/80 to-transparent" />
-                        <div
-                          className={`absolute top-4 right-4 w-12 h-12 rounded-xl bg-gradient-to-br ${project.gradient} flex items-center justify-center shadow-lg`}
-                        >
-                          <Icon className="w-6 h-6 text-white" />
-                        </div>
-                        <Badge
-                          className="absolute top-4 left-4 bg-background/90 backdrop-blur-sm"
-                          data-testid={`badge-category-${project.category.toLowerCase()}-${project.id}`}
-                        >
-                          {project.category}
-                        </Badge>
+            {isLoading ? (
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                {[...Array(4)].map((_, i) => (
+                  <Card key={i} className="overflow-hidden animate-pulse">
+                    <div className="h-64 bg-muted" />
+                    <div className="p-8 space-y-4">
+                      <div className="h-6 bg-muted rounded w-3/4" />
+                      <div className="h-4 bg-muted rounded w-full" />
+                      <div className="h-4 bg-muted rounded w-full" />
+                      <div className="h-10 bg-muted rounded" />
+                    </div>
+                  </Card>
+                ))}
+              </div>
+            ) : projects && projects.length > 0 ? (
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                {projects.map((project) => (
+                  <Card
+                    key={project.id}
+                    className="overflow-hidden hover:shadow-2xl transition-all duration-500 border-2 hover:border-primary/30 group"
+                    data-testid={`card-project-${project.id}`}
+                  >
+                    <div className="relative h-64 overflow-hidden">
+                      <img
+                        src={project.imageUrl}
+                        alt={project.title}
+                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-background via-background/80 to-transparent" />
+                      <div
+                        className="absolute top-4 right-4 w-12 h-12 rounded-xl bg-gradient-to-br from-blue-600 to-purple-600 flex items-center justify-center shadow-lg"
+                      >
+                        <Briefcase className="w-6 h-6 text-white" />
                       </div>
+                      <Badge
+                        className="absolute top-4 left-4 bg-background/90 backdrop-blur-sm"
+                        data-testid={`badge-category-${project.category.toLowerCase()}-${project.id}`}
+                      >
+                        {project.category}
+                      </Badge>
+                    </div>
 
-                      <div className="p-8">
-                        <h3
-                          className="text-2xl font-bold mb-3 group-hover:text-primary transition-colors"
-                          data-testid={`text-project-title-${project.id}`}
-                        >
-                          {project.title}
-                        </h3>
-                        <p
-                          className="text-muted-foreground mb-6 leading-relaxed"
-                          data-testid={`text-project-description-${project.id}`}
-                        >
-                          {project.description}
-                        </p>
+                    <div className="p-8">
+                      <h3
+                        className="text-2xl font-bold mb-3 group-hover:text-primary transition-colors"
+                        data-testid={`text-project-title-${project.id}`}
+                      >
+                        {project.title}
+                      </h3>
+                      <p
+                        className="text-muted-foreground mb-6 leading-relaxed"
+                        data-testid={`text-project-description-${project.id}`}
+                      >
+                        {project.description}
+                      </p>
 
-                        {/* Client Information */}
-                        <div className="mb-6 p-5 rounded-lg bg-muted/50 border border-border/50">
-                          <div className="flex items-center gap-2 mb-3">
-                            <Building2 className="w-4 h-4 text-primary" />
-                            <span className="font-semibold text-sm text-muted-foreground">
-                              Client Information
-                            </span>
-                          </div>
-                          <div className="space-y-2">
-                            <div>
-                              <span
-                                className="text-sm font-semibold"
-                                data-testid={`text-client-name-${project.id}`}
-                              >
-                                {project.client.name}
-                              </span>
-                            </div>
-                            <div className="text-sm text-muted-foreground">
-                              {project.client.industry} •{" "}
-                              {project.client.location}
-                            </div>
+                      {project.technologies && project.technologies.length > 0 && (
+                        <div className="mb-6">
+                          <div className="flex flex-wrap gap-2">
+                            {project.technologies.map((tech, idx) => (
+                              <Badge key={idx} variant="secondary" className="text-xs">
+                                {tech}
+                              </Badge>
+                            ))}
                           </div>
                         </div>
+                      )}
 
+                      {project.projectUrl && (
                         <Button
                           asChild
                           className="w-full"
                           data-testid={`button-view-live-${project.id}`}
                         >
                           <a
-                            href={project.liveUrl}
+                            href={project.projectUrl}
                             target="_blank"
                             rel="noopener noreferrer"
                           >
@@ -312,15 +194,23 @@ export default function Portfolio() {
                             <ExternalLink className="w-4 h-4 ml-2" />
                           </a>
                         </Button>
-                      </div>
-                    </Card>
-                  );
-                })}
-            </div>
+                      )}
+                    </div>
+                  </Card>
+                ))}
+              </div>
+            ) : (
+              <div className="text-center py-20">
+                <Briefcase className="w-16 h-16 text-muted-foreground mx-auto mb-4" />
+                <h3 className="text-2xl font-bold mb-2">No Projects Yet</h3>
+                <p className="text-muted-foreground">
+                  Check back soon for our latest work!
+                </p>
+              </div>
+            )}
           </div>
         </section>
 
-        {/* CTA Section */}
         <section className="py-24 md:py-32 bg-gradient-to-br from-primary/10 to-purple-500/10 relative overflow-hidden">
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-primary/20 to-transparent" />
           <div className="relative max-w-4xl mx-auto px-6 text-center">

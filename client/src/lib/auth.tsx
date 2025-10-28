@@ -48,10 +48,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   };
 
   const login = async (email: string, password: string) => {
-    const response = await apiRequest("POST", "/api/admin/login", { email, password });
-    const data = await response.json();
-
-    setUser(data.user);
+    await apiRequest("POST", "/api/admin/login", { email, password });
+    
+    await checkAuth();
     navigate("/admin/dashboard");
   };
 
