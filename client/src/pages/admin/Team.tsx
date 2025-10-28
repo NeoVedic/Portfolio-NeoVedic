@@ -134,7 +134,17 @@ export default function AdminTeam() {
                       <p className="text-sm text-slate-600 dark:text-slate-400">{member.role}</p>
                     </div>
                     <div className="flex gap-2">
-                      <Button size="sm" variant="outline" onClick={() => { setEditingMember(member); setFormData(member); setIsDialogOpen(true); }} data-testid={`button-edit-${member.id}`}><Edit className="w-4 h-4" /></Button>
+                      <Button size="sm" variant="outline" onClick={() => { 
+                        setEditingMember(member); 
+                        setFormData({
+                          name: member.name,
+                          role: member.role,
+                          bio: member.bio,
+                          photoUrl: member.photoUrl,
+                          order: member.order,
+                        }); 
+                        setIsDialogOpen(true); 
+                      }} data-testid={`button-edit-${member.id}`}><Edit className="w-4 h-4" /></Button>
                       <Button size="sm" variant="destructive" onClick={() => { if (confirm("Delete this member?")) deleteMutation.mutate(member.id); }} data-testid={`button-delete-${member.id}`}><Trash2 className="w-4 h-4" /></Button>
                     </div>
                   </div>
