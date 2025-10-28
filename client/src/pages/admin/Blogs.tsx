@@ -85,7 +85,19 @@ export default function AdminBlogs() {
 
   const handleEdit = (blog: Blog) => {
     setEditingBlog(blog);
-    setFormData(blog);
+    setFormData({
+      title: blog.title,
+      slug: blog.slug,
+      excerpt: blog.excerpt,
+      content: blog.content,
+      author: blog.author,
+      imageUrl: blog.imageUrl,
+      category: blog.category,
+      tags: blog.tags || undefined,
+      metaTitle: blog.metaTitle || undefined,
+      metaDescription: blog.metaDescription || undefined,
+      isPublished: blog.isPublished,
+    });
     setIsDialogOpen(true);
   };
 
