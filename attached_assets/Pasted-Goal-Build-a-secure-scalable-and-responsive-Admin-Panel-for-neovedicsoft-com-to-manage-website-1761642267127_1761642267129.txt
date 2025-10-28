@@ -1,0 +1,104 @@
+Goal:
+Build a secure, scalable, and responsive Admin Panel for neovedicsoft.com
+ to manage website content, leads, service inquiries, blogs, portfolios, and team members.
+
+Requirements
+
+⚙️ 2. Core Modules
+A. Dashboard Overview
+
+Summary cards for:
+
+Total Leads / Messages
+
+Published Blogs
+
+Active Projects (Portfolio)
+
+SEO Keywords or Campaigns
+
+Graphs for traffic analytics (integrate Google Analytics API if possible)
+
+B. Leads / Contact Messages
+
+View and manage contact form submissions
+
+Filter by date, read/unread
+
+Option to reply or export to CSV
+
+C. Blog Management
+
+CRUD (Create, Read, Update, Delete) for blogs
+
+Rich text editor (e.g., Quill, TipTap, TinyMCE)
+
+Image upload (via Cloudinary / local storage)
+
+SEO fields: Meta Title, Description, Slug
+
+D. Portfolio Management
+
+Add/update projects with:
+
+Title, Description, Category (Web, AI, Cloud, etc.)
+
+Technologies used
+
+Screenshots / Links
+
+Visibility toggle
+
+E. Team Management
+
+Add/remove team members
+
+Manage name, role, photo, and bio
+
+F. Services Section
+
+CRUD for services listed on the main website
+
+Each service: title, short description, detailed description, icon/image
+
+G. SEO & Marketing Tools (Optional Advanced)
+
+Manage meta tags for pages
+
+Add tracking codes (Google Analytics, Meta Pixel)
+
+Manage newsletter/email subscriber list
+
+🔐 3. Authentication & Access
+
+Login with email/password
+
+Password reset via email
+
+Role-based permissions (Admin / Editor)
+
+🎨 4. UI Design
+
+Clean, minimalistic layout
+
+Use Tailwind CSS + ShadCN UI / Material UI
+
+Sidebar navigation: Dashboard, Leads, Blog, Portfolio, Team, Settings
+
+Dark mode support (optional)
+
+🗂️ 5. API Integration
+
+Admin routes protected by JWT middleware
+
+All content fetched via REST or GraphQL API
+
+Frontend website auto-updates using same API or ISR (Incremental Static Regeneration)
+
+ Add-ons
+
+Admin activity logs
+
+Notification emails for new leads
+
+Integrated AI content assistant for blog writing

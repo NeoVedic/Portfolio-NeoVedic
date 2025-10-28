@@ -3,6 +3,8 @@ import { queryClient } from "./lib/queryClient";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
+import { AuthProvider } from "@/lib/auth";
+import { ProtectedRoute } from "@/components/ProtectedRoute";
 import Home from "@/pages/Home";
 import Services from "@/pages/Services";
 import Portfolio from "@/pages/Portfolio";
@@ -21,6 +23,13 @@ import Marketing from "@/pages/services/Marketing";
 import PrivacyPolicy from "@/pages/PrivacyPolicy";
 import TermsOfService from "@/pages/TermsOfService";
 import NotFound from "@/pages/not-found";
+import AdminLogin from "@/pages/admin/Login";
+import AdminDashboard from "@/pages/admin/Dashboard";
+import AdminLeads from "@/pages/admin/Leads";
+import AdminBlogs from "@/pages/admin/Blogs";
+import AdminPortfolio from "@/pages/admin/Portfolio";
+import AdminTeam from "@/pages/admin/Team";
+import AdminServices from "@/pages/admin/Services";
 
 function Router() {
   return (
@@ -42,6 +51,39 @@ function Router() {
       <Route path="/services/marketing" component={Marketing} />
       <Route path="/privacy-policy" component={PrivacyPolicy} />
       <Route path="/terms-of-service" component={TermsOfService} />
+      
+      <Route path="/admin/login" component={AdminLogin} />
+      <Route path="/admin/dashboard">
+        <ProtectedRoute>
+          <AdminDashboard />
+        </ProtectedRoute>
+      </Route>
+      <Route path="/admin/leads">
+        <ProtectedRoute>
+          <AdminLeads />
+        </ProtectedRoute>
+      </Route>
+      <Route path="/admin/blogs">
+        <ProtectedRoute>
+          <AdminBlogs />
+        </ProtectedRoute>
+      </Route>
+      <Route path="/admin/portfolio">
+        <ProtectedRoute>
+          <AdminPortfolio />
+        </ProtectedRoute>
+      </Route>
+      <Route path="/admin/team">
+        <ProtectedRoute>
+          <AdminTeam />
+        </ProtectedRoute>
+      </Route>
+      <Route path="/admin/services">
+        <ProtectedRoute>
+          <AdminServices />
+        </ProtectedRoute>
+      </Route>
+      
       <Route component={NotFound} />
     </Switch>
   );
@@ -50,10 +92,12 @@ function Router() {
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <TooltipProvider>
-        <Toaster />
-        <Router />
-      </TooltipProvider>
+      <AuthProvider>
+        <TooltipProvider>
+          <Toaster />
+          <Router />
+        </TooltipProvider>
+      </AuthProvider>
     </QueryClientProvider>
   );
 }

@@ -1,5 +1,22 @@
 import mongoose from "mongoose";
-import { type ContactSubmission as ContactSubmissionType, type InsertContactSubmission, type JobApplication as JobApplicationType, type InsertJobApplication } from "@shared/schema";
+import { 
+  type ContactSubmission as ContactSubmissionType, 
+  type InsertContactSubmission, 
+  type JobApplication as JobApplicationType, 
+  type InsertJobApplication,
+  type AdminUser,
+  type InsertAdminUser,
+  type Blog,
+  type InsertBlog,
+  type Portfolio,
+  type InsertPortfolio,
+  type TeamMember,
+  type InsertTeamMember,
+  type Service,
+  type InsertService,
+  type ActivityLog,
+  type InsertActivityLog
+} from "@shared/schema";
 import { ContactSubmission } from "./models/ContactSubmission";
 import { JobApplication } from "./models/JobApplication";
 import { connectToMongoDB } from "./mongodb";
@@ -24,6 +41,7 @@ export class MongoStorage implements IStorage {
       email: savedSubmission.email,
       service: savedSubmission.service,
       message: savedSubmission.message,
+      isRead: false,
       createdAt: savedSubmission.createdAt,
     };
   }
@@ -39,8 +57,21 @@ export class MongoStorage implements IStorage {
       email: submission.email,
       service: submission.service,
       message: submission.message,
+      isRead: false,
       createdAt: submission.createdAt,
     }));
+  }
+
+  async getContactSubmissionById(_id: string): Promise<ContactSubmissionType | null> {
+    throw new Error("MongoDB methods not fully implemented. Use in-memory storage.");
+  }
+
+  async markContactAsRead(_id: string): Promise<ContactSubmissionType | null> {
+    throw new Error("MongoDB methods not fully implemented. Use in-memory storage.");
+  }
+
+  async deleteContactSubmission(_id: string): Promise<boolean> {
+    throw new Error("MongoDB methods not fully implemented. Use in-memory storage.");
   }
 
   async createJobApplication(insertApplication: InsertJobApplication): Promise<JobApplicationType> {
@@ -87,5 +118,154 @@ export class MongoStorage implements IStorage {
       coverLetter: application.coverLetter || null,
       createdAt: application.createdAt,
     }));
+  }
+
+  async getJobApplicationById(_id: string): Promise<JobApplicationType | null> {
+    throw new Error("MongoDB methods not fully implemented. Use in-memory storage.");
+  }
+
+  async deleteJobApplication(_id: string): Promise<boolean> {
+    throw new Error("MongoDB methods not fully implemented. Use in-memory storage.");
+  }
+
+  async createAdminUser(_user: InsertAdminUser): Promise<AdminUser> {
+    throw new Error("MongoDB methods not fully implemented. Use in-memory storage.");
+  }
+
+  async getAdminUserByEmail(_email: string): Promise<AdminUser | null> {
+    throw new Error("MongoDB methods not fully implemented. Use in-memory storage.");
+  }
+
+  async getAdminUserById(_id: string): Promise<AdminUser | null> {
+    throw new Error("MongoDB methods not fully implemented. Use in-memory storage.");
+  }
+
+  async getAllAdminUsers(): Promise<AdminUser[]> {
+    throw new Error("MongoDB methods not fully implemented. Use in-memory storage.");
+  }
+
+  async updateAdminUser(_id: string, _updates: Partial<InsertAdminUser>): Promise<AdminUser | null> {
+    throw new Error("MongoDB methods not fully implemented. Use in-memory storage.");
+  }
+
+  async createBlog(_blog: InsertBlog): Promise<Blog> {
+    throw new Error("MongoDB methods not fully implemented. Use in-memory storage.");
+  }
+
+  async getAllBlogs(): Promise<Blog[]> {
+    throw new Error("MongoDB methods not fully implemented. Use in-memory storage.");
+  }
+
+  async getPublishedBlogs(): Promise<Blog[]> {
+    throw new Error("MongoDB methods not fully implemented. Use in-memory storage.");
+  }
+
+  async getBlogById(_id: string): Promise<Blog | null> {
+    throw new Error("MongoDB methods not fully implemented. Use in-memory storage.");
+  }
+
+  async getBlogBySlug(_slug: string): Promise<Blog | null> {
+    throw new Error("MongoDB methods not fully implemented. Use in-memory storage.");
+  }
+
+  async updateBlog(_id: string, _updates: Partial<InsertBlog>): Promise<Blog | null> {
+    throw new Error("MongoDB methods not fully implemented. Use in-memory storage.");
+  }
+
+  async deleteBlog(_id: string): Promise<boolean> {
+    throw new Error("MongoDB methods not fully implemented. Use in-memory storage.");
+  }
+
+  async publishBlog(_id: string): Promise<Blog | null> {
+    throw new Error("MongoDB methods not fully implemented. Use in-memory storage.");
+  }
+
+  async createPortfolio(_portfolio: InsertPortfolio): Promise<Portfolio> {
+    throw new Error("MongoDB methods not fully implemented. Use in-memory storage.");
+  }
+
+  async getAllPortfolio(): Promise<Portfolio[]> {
+    throw new Error("MongoDB methods not fully implemented. Use in-memory storage.");
+  }
+
+  async getVisiblePortfolio(): Promise<Portfolio[]> {
+    throw new Error("MongoDB methods not fully implemented. Use in-memory storage.");
+  }
+
+  async getPortfolioById(_id: string): Promise<Portfolio | null> {
+    throw new Error("MongoDB methods not fully implemented. Use in-memory storage.");
+  }
+
+  async updatePortfolio(_id: string, _updates: Partial<InsertPortfolio>): Promise<Portfolio | null> {
+    throw new Error("MongoDB methods not fully implemented. Use in-memory storage.");
+  }
+
+  async deletePortfolio(_id: string): Promise<boolean> {
+    throw new Error("MongoDB methods not fully implemented. Use in-memory storage.");
+  }
+
+  async createTeamMember(_member: InsertTeamMember): Promise<TeamMember> {
+    throw new Error("MongoDB methods not fully implemented. Use in-memory storage.");
+  }
+
+  async getAllTeamMembers(): Promise<TeamMember[]> {
+    throw new Error("MongoDB methods not fully implemented. Use in-memory storage.");
+  }
+
+  async getTeamMemberById(_id: string): Promise<TeamMember | null> {
+    throw new Error("MongoDB methods not fully implemented. Use in-memory storage.");
+  }
+
+  async updateTeamMember(_id: string, _updates: Partial<InsertTeamMember>): Promise<TeamMember | null> {
+    throw new Error("MongoDB methods not fully implemented. Use in-memory storage.");
+  }
+
+  async deleteTeamMember(_id: string): Promise<boolean> {
+    throw new Error("MongoDB methods not fully implemented. Use in-memory storage.");
+  }
+
+  async createService(_service: InsertService): Promise<Service> {
+    throw new Error("MongoDB methods not fully implemented. Use in-memory storage.");
+  }
+
+  async getAllServices(): Promise<Service[]> {
+    throw new Error("MongoDB methods not fully implemented. Use in-memory storage.");
+  }
+
+  async getServiceById(_id: string): Promise<Service | null> {
+    throw new Error("MongoDB methods not fully implemented. Use in-memory storage.");
+  }
+
+  async updateService(_id: string, _updates: Partial<InsertService>): Promise<Service | null> {
+    throw new Error("MongoDB methods not fully implemented. Use in-memory storage.");
+  }
+
+  async deleteService(_id: string): Promise<boolean> {
+    throw new Error("MongoDB methods not fully implemented. Use in-memory storage.");
+  }
+
+  async createActivityLog(_log: InsertActivityLog): Promise<ActivityLog> {
+    throw new Error("MongoDB methods not fully implemented. Use in-memory storage.");
+  }
+
+  async getActivityLogs(_limit?: number): Promise<ActivityLog[]> {
+    throw new Error("MongoDB methods not fully implemented. Use in-memory storage.");
+  }
+
+  async getUserActivityLogs(_userId: string, _limit?: number): Promise<ActivityLog[]> {
+    throw new Error("MongoDB methods not fully implemented. Use in-memory storage.");
+  }
+
+  async getDashboardStats(): Promise<{
+    totalLeads: number;
+    unreadLeads: number;
+    totalBlogs: number;
+    publishedBlogs: number;
+    totalPortfolios: number;
+    visiblePortfolios: number;
+    totalTeamMembers: number;
+    totalJobApplications: number;
+  }> {
+    throw new Error("MongoDB methods not fully implemented. Use in-memory storage.");
   }
 }

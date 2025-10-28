@@ -11,16 +11,16 @@ export function HeroSection() {
           <div className="space-y-6" data-testid="hero-content">
             <h1 className="text-[32px] md:text-[50px] lg:text-[56px] leading-[44px] md:leading-[64px] lg:leading-[72px] font-medium tracking-tight">
               <span className="text-[#060821]">
-                Transform Next-Gen IT
+                Innovate, Build &
                 <br />
-                Needs With
+                Scale
               </span>
               <br />
               <span className="text-orange-500">
-                AI-First Digital{" "}
+                With Full-Stack{" "}
               </span>
               <span className="text-[#060821]">
-                Partner
+                Digital Intelligence
               </span>
             </h1>
 
