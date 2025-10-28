@@ -11,6 +11,8 @@ import {
   insertPortfolioSchema,
   insertTeamMemberSchema,
   insertServiceSchema,
+  insertTestimonialSchema,
+  insertAdminUserSchema,
   insertActivityLogSchema
 } from "@shared/schema";
 import { connectToMongoDB, getConnectionStatus } from "./db/mongodb";
@@ -490,6 +492,87 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  app.get("/api/admin/testimonials", authenticateToken, async (_req, res) => {
+    try {
+      const testimonials = await storage.getAllTestimonials();
+      res.json(testimonials);
+    } catch (error: any) {
+      res.status(500).json({ error: error.message || "Failed to fetch testimonials" });
+    }
+  });
+
+  app.post("/api/admin/testimonials", authenticateToken, async (req, res) => {
+    try {
+      const validatedData = insertTestimonialSchema.parse(req.body);
+      const testimonial = await storage.createTestimonial(validatedData);
+
+      await storage.createActivityLog({
+        userId: req.user!.userId,
+        action: "Created testimonial",
+        entityType: "testimonial",
+        entityId: testimonial.id,
+        details: testimonial.name,
+      });
+
+      res.json(testimonial);
+    } catch (error: any) {
+      res.status(400).json({ error: error.message || "Failed to create testimonial" });
+    }
+  });
+
+  app.put("/api/admin/testimonials/:id", authenticateToken, async (req, res) => {
+    try {
+      const validatedData = insertTestimonialSchema.partial().parse(req.body);
+      const testimonial = await storage.updateTestimonial(req.params.id, validatedData);
+
+      if (!testimonial) {
+        return res.status(404).json({ error: "Testimonial not found" });
+      }
+
+      await storage.createActivityLog({
+        userId: req.user!.userId,
+        action: "Updated testimonial",
+        entityType: "testimonial",
+        entityId: testimonial.id,
+        details: testimonial.name,
+      });
+
+      res.json(testimonial);
+    } catch (error: any) {
+      res.status(400).json({ error: error.message || "Failed to update testimonial" });
+    }
+  });
+
+  app.delete("/api/admin/testimonials/:id", authenticateToken, requireAuth("admin"), async (req, res) => {
+    try {
+      const deleted = await storage.deleteTestimonial(req.params.id);
+
+      if (!deleted) {
+        return res.status(404).json({ error: "Testimonial not found" });
+      }
+
+      await storage.createActivityLog({
+        userId: req.user!.userId,
+        action: "Deleted testimonial",
+        entityType: "testimonial",
+        entityId: req.params.id,
+      });
+
+      res.json({ message: "Testimonial deleted successfully" });
+    } catch (error: any) {
+      res.status(500).json({ error: error.message || "Failed to delete testimonial" });
+    }
+  });
+
+  app.get("/api/testimonials", async (_req, res) => {
+    try {
+      const testimonials = await storage.getAllTestimonials();
+      res.json(testimonials);
+    } catch (error: any) {
+      res.status(500).json({ error: error.message || "Failed to fetch testimonials" });
+    }
+  });
+
   app.get("/api/admin/job-applications", authenticateToken, async (_req, res) => {
     try {
       const applications = await storage.getAllJobApplications();
@@ -527,6 +610,57 @@ export async function registerRoutes(app: Express): Promise<Server> {
       res.json(logs);
     } catch (error: any) {
       res.status(500).json({ error: error.message || "Failed to fetch activity logs" });
+    }
+  });
+
+  app.get("/api/admin/users", authenticateToken, requireAuth("admin"), async (_req, res) => {
+    try {
+      const users = await storage.getAllAdminUsers();
+      res.json(users);
+    } catch (error: any) {
+      res.status(500).json({ error: error.message || "Failed to fetch admin users" });
+    }
+  });
+
+  app.post("/api/admin/users", authenticateToken, requireAuth("admin"), async (req, res) => {
+    try {
+      const validatedData = insertAdminUserSchema.parse(req.body);
+      const user = await storage.createAdminUser(validatedData);
+
+      await storage.createActivityLog({
+        userId: req.user!.userId,
+        action: "Created admin user",
+        entityType: "admin-user",
+        entityId: user.id,
+        details: user.email,
+      });
+
+      res.json(user);
+    } catch (error: any) {
+      res.status(400).json({ error: error.message || "Failed to create admin user" });
+    }
+  });
+
+  app.put("/api/admin/users/:id", authenticateToken, requireAuth("admin"), async (req, res) => {
+    try {
+      const validatedData = insertAdminUserSchema.partial().parse(req.body);
+      const user = await storage.updateAdminUser(req.params.id, validatedData);
+
+      if (!user) {
+        return res.status(404).json({ error: "Admin user not found" });
+      }
+
+      await storage.createActivityLog({
+        userId: req.user!.userId,
+        action: "Updated admin user",
+        entityType: "admin-user",
+        entityId: user.id,
+        details: user.email,
+      });
+
+      res.json(user);
+    } catch (error: any) {
+      res.status(400).json({ error: error.message || "Failed to update admin user" });
     }
   });
 

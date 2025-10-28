@@ -12,7 +12,9 @@ import {
   Menu,
   X,
   Rocket,
-  UserCheck
+  UserCheck,
+  Quote,
+  Shield
 } from "lucide-react";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
@@ -31,6 +33,8 @@ const navItems: NavItem[] = [
   { href: "/admin/portfolio", label: "Portfolio", icon: <Briefcase className="w-5 h-5" /> },
   { href: "/admin/team", label: "Team", icon: <Users className="w-5 h-5" /> },
   { href: "/admin/services", label: "Services", icon: <Rocket className="w-5 h-5" /> },
+  { href: "/admin/testimonials", label: "Testimonials", icon: <Quote className="w-5 h-5" /> },
+  { href: "/admin/users", label: "Admin Users", icon: <Shield className="w-5 h-5" /> },
 ];
 
 export function AdminLayout({ children }: { children: React.ReactNode }) {

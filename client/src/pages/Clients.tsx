@@ -12,12 +12,15 @@ import {
   User,
 } from "lucide-react";
 import { Link } from "wouter";
-import devkinandanPhoto from "@assets/devkinandan.jpg";
-import manishPhoto from "@assets/sah.jpg";
 import { SEO } from "@/components/SEO";
 import { pagesSEO } from "@/lib/seo-config";
+import { useQuery } from "@tanstack/react-query";
+import type { Testimonial } from "@shared/schema";
 
 export default function Clients() {
+  const { data: testimonials, isLoading: testimonialsLoading } = useQuery<Testimonial[]>({
+    queryKey: ["/api/testimonials"],
+  });
   const industries = [
     {
       icon: Building2,
@@ -49,44 +52,6 @@ export default function Clients() {
     },
   ];
 
-  const testimonials = [
-    {
-      name: "Shanti Lal Sharma",
-      role: "Owner",
-      company: "Bhagwati Caterers",
-      content:
-        "NeoVedic transformed our infrastructure with their DevOps expertise. We've reduced deployment time by 80% and operational costs by 60%. Their team is absolutely world-class.",
-      rating: 5,
-      photo: "", // Add client photo URL here
-    },
-    {
-      name: "DevkiNandan Sharma",
-      role: "Founder",
-      company: "Panchvati Yoga & Ayurvedic Aashram",
-      content:
-        "The custom ERP system they built has revolutionized our operations. Everything from inventory to financials is now seamlessly integrated. Best investment we've made.",
-      rating: 5,
-      photo: devkinandanPhoto,
-    },
-    {
-      name: "Dinesh Sah",
-      role: "Director",
-      company: "SukhPragya Software Pvt. Ltd.",
-      content:
-        "Their cloud migration strategy was flawless. Zero downtime, improved performance, and significant cost savings. The NeoVedic team exceeded all expectations.",
-      rating: 5,
-      photo: "", // Add client photo URL here
-    },
-    {
-      name: "Manish Kr Sah",
-      role: "Director",
-      company: "Boardzone",
-      content:
-        "Our organic traffic increased by 300% in just 6 months thanks to their digital marketing expertise. The ROI has been phenomenal. Highly recommended!",
-      rating: 5,
-      photo: manishPhoto,
-    },
-  ];
 
   const stats = [
     { value: "8+", label: "Happy Clients", icon: Users },
@@ -214,27 +179,41 @@ export default function Clients() {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              {testimonials.map((testimonial) => (
-                <Card key={testimonial.name} className="p-10 relative">
-                  <Quote className="w-12 h-12 text-primary/20 absolute top-6 right-6" />
-                  <div className="flex gap-1 mb-6">
-                    {[...Array(testimonial.rating)].map((_, i) => (
-                      <Star
-                        key={i}
-                        className="w-5 h-5 fill-primary text-primary"
-                      />
-                    ))}
-                  </div>
-                  <p className="text-lg text-muted-foreground mb-8 leading-relaxed italic">
-                    "{testimonial.content}"
-                  </p>
-                  <div className="border-t border-border pt-6">
-                    <div className="flex items-center gap-4">
-                      <div className="flex-shrink-0">
-                        {testimonial.photo ? (
-                          <div className="w-16 h-16 rounded-full overflow-hidden border-2 border-primary/20 shadow-lg">
-                            <img
-                              src={testimonial.photo}
+              {testimonialsLoading ? (
+                <>
+                  {[...Array(4)].map((_, i) => (
+                    <Card key={i} className="p-10 relative animate-pulse">
+                      <div className="h-6 bg-slate-200 dark:bg-slate-700 rounded w-1/4 mb-6"></div>
+                      <div className="space-y-3 mb-8">
+                        <div className="h-4 bg-slate-200 dark:bg-slate-700 rounded"></div>
+                        <div className="h-4 bg-slate-200 dark:bg-slate-700 rounded w-5/6"></div>
+                      </div>
+                      <div className="h-16 bg-slate-200 dark:bg-slate-700 rounded"></div>
+                    </Card>
+                  ))}
+                </>
+              ) : testimonials && testimonials.length > 0 ? (
+                testimonials.map((testimonial) => (
+                  <Card key={testimonial.id} className="p-10 relative">
+                    <Quote className="w-12 h-12 text-primary/20 absolute top-6 right-6" />
+                    <div className="flex gap-1 mb-6">
+                      {[...Array(testimonial.rating)].map((_, i) => (
+                        <Star
+                          key={i}
+                          className="w-5 h-5 fill-primary text-primary"
+                        />
+                      ))}
+                    </div>
+                    <p className="text-lg text-muted-foreground mb-8 leading-relaxed italic">
+                      "{testimonial.content}"
+                    </p>
+                    <div className="border-t border-border pt-6">
+                      <div className="flex items-center gap-4">
+                        <div className="flex-shrink-0">
+                          {testimonial.photoUrl ? (
+                            <div className="w-16 h-16 rounded-full overflow-hidden border-2 border-primary/20 shadow-lg">
+                              <img
+                                src={testimonial.photoUrl}
                               alt={testimonial.name}
                               className="w-full h-full object-cover"
                               data-testid={`img-client-${testimonial.name.toLowerCase().replace(/\s+/g, "-")}`}
@@ -260,7 +239,13 @@ export default function Clients() {
                     </div>
                   </div>
                 </Card>
-              ))}
+              ))
+              ) : (
+                <Card className="p-12 col-span-full text-center">
+                  <Quote className="w-16 h-16 mx-auto text-slate-300 dark:text-slate-600 mb-4" />
+                  <p className="text-lg text-muted-foreground">No testimonials available at the moment.</p>
+                </Card>
+              )}
             </div>
           </div>
         </section>

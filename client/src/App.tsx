@@ -31,6 +31,8 @@ import AdminBlogs from "@/pages/admin/Blogs";
 import AdminPortfolio from "@/pages/admin/Portfolio";
 import AdminTeam from "@/pages/admin/Team";
 import AdminServices from "@/pages/admin/Services";
+import AdminTestimonials from "@/pages/admin/Testimonials";
+import AdminUsers from "@/pages/admin/Users";
 
 function Router() {
   return (
@@ -87,6 +89,16 @@ function Router() {
       <Route path="/admin/services">
         <ProtectedRoute>
           <AdminServices />
+        </ProtectedRoute>
+      </Route>
+      <Route path="/admin/testimonials">
+        <ProtectedRoute>
+          <AdminTestimonials />
+        </ProtectedRoute>
+      </Route>
+      <Route path="/admin/users">
+        <ProtectedRoute>
+          <AdminUsers />
         </ProtectedRoute>
       </Route>
       
