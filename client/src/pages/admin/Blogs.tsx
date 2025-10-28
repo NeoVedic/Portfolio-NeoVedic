@@ -174,23 +174,25 @@ export default function AdminBlogs() {
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="excerpt">Excerpt *</Label>
+                  <Label htmlFor="excerpt">Excerpt * (minimum 20 characters)</Label>
                   <Textarea
                     id="excerpt"
                     value={formData.excerpt || ""}
                     onChange={(e) => setFormData({ ...formData, excerpt: e.target.value })}
                     required
+                    minLength={20}
                     rows={2}
                     data-testid="input-excerpt"
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="content">Content *</Label>
+                  <Label htmlFor="content">Content * (minimum 50 characters)</Label>
                   <Textarea
                     id="content"
                     value={formData.content || ""}
                     onChange={(e) => setFormData({ ...formData, content: e.target.value })}
                     required
+                    minLength={50}
                     rows={6}
                     data-testid="input-content"
                   />
