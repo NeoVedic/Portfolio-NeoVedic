@@ -616,7 +616,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.get("/api/admin/users", authenticateToken, requireAuth("admin"), async (_req, res) => {
     try {
       const users = await storage.getAllAdminUsers();
-      res.json(users);
+      const safeUsers = users.map(({ passwordHash, ...safe }) => safe);
+      res.json(safeUsers);
     } catch (error: any) {
       res.status(500).json({ error: error.message || "Failed to fetch admin users" });
     }
@@ -632,10 +633,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
         action: "Created admin user",
         entityType: "admin-user",
         entityId: user.id,
-        details: user.email,
+        details: `${user.email} (${user.role})`,
       });
 
-      res.json(user);
+      const { passwordHash, ...safeUser } = user;
+      res.json(safeUser);
     } catch (error: any) {
       res.status(400).json({ error: error.message || "Failed to create admin user" });
     }
@@ -655,10 +657,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
         action: "Updated admin user",
         entityType: "admin-user",
         entityId: user.id,
-        details: user.email,
+        details: `${user.email} (${user.role})`,
       });
 
-      res.json(user);
+      const { passwordHash, ...safeUser } = user;
+      res.json(safeUser);
     } catch (error: any) {
       res.status(400).json({ error: error.message || "Failed to update admin user" });
     }

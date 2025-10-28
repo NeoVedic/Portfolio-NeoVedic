@@ -9,8 +9,8 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { useToast } from "@/hooks/use-toast";
 import { queryClient, apiRequest } from "@/lib/queryClient";
-import type { AdminUser, InsertAdminUser } from "@shared/schema";
-import { Plus, Pencil, Shield, UserX } from "lucide-react";
+import type { SafeAdminUser, InsertAdminUser } from "@shared/schema";
+import { Plus, Pencil, Shield, UserX, AlertCircle } from "lucide-react";
 import { useAuth } from "@/lib/auth";
 import { format } from "date-fns";
 
@@ -18,12 +18,26 @@ export default function AdminUsers() {
   const { toast } = useToast();
   const { user: currentUser } = useAuth();
   const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const [editingUser, setEditingUser] = useState<AdminUser | null>(null);
+  const [editingUser, setEditingUser] = useState<SafeAdminUser | null>(null);
   const [formData, setFormData] = useState<Partial<InsertAdminUser>>({});
 
-  const { data: users, isLoading } = useQuery<AdminUser[]>({
+  const { data: users, isLoading } = useQuery<SafeAdminUser[]>({
     queryKey: ["/api/admin/users"],
+    enabled: currentUser?.role === "admin",
   });
+
+  if (currentUser?.role !== "admin") {
+    return (
+      <AdminLayout>
+        <div className="flex flex-col items-center justify-center min-h-[60vh]">
+          <AlertCircle className="w-16 h-16 text-red-500 mb-4" />
+          <h2 className="text-2xl font-bold mb-2">Access Denied</h2>
+          <p className="text-muted-foreground">You don't have permission to access this page.</p>
+          <p className="text-sm text-muted-foreground mt-2">Only administrators can manage users.</p>
+        </div>
+      </AdminLayout>
+    );
+  }
 
   const createMutation = useMutation({
     mutationFn: (data: InsertAdminUser) =>
@@ -57,7 +71,7 @@ export default function AdminUsers() {
     }
   };
 
-  const handleEdit = (user: AdminUser) => {
+  const handleEdit = (user: SafeAdminUser) => {
     setEditingUser(user);
     setFormData({
       name: user.name,

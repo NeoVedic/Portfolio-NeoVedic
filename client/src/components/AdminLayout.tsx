@@ -66,26 +66,33 @@ export function AdminLayout({ children }: { children: React.ReactNode }) {
           </div>
 
           <nav className="flex-1 p-4 space-y-1">
-            {navItems.map((item) => {
-              const isActive = location === item.href;
-              return (
-                <Link key={item.href} href={item.href}>
-                  <a
-                    className={cn(
-                      "flex items-center gap-3 px-3 py-2 rounded-lg transition-colors",
-                      isActive
-                        ? "bg-primary text-primary-foreground"
-                        : "text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"
-                    )}
-                    onClick={() => setIsSidebarOpen(false)}
-                    data-testid={`link-${item.label.toLowerCase()}`}
-                  >
-                    {item.icon}
-                    <span>{item.label}</span>
-                  </a>
-                </Link>
-              );
-            })}
+            {navItems
+              .filter((item) => {
+                if (item.href === "/admin/users") {
+                  return user?.role === "admin";
+                }
+                return true;
+              })
+              .map((item) => {
+                const isActive = location === item.href;
+                return (
+                  <Link key={item.href} href={item.href}>
+                    <a
+                      className={cn(
+                        "flex items-center gap-3 px-3 py-2 rounded-lg transition-colors",
+                        isActive
+                          ? "bg-primary text-primary-foreground"
+                          : "text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"
+                      )}
+                      onClick={() => setIsSidebarOpen(false)}
+                      data-testid={`link-${item.label.toLowerCase()}`}
+                    >
+                      {item.icon}
+                      <span>{item.label}</span>
+                    </a>
+                  </Link>
+                );
+              })}
           </nav>
 
           <div className="p-4 border-t border-slate-200 dark:border-slate-800">

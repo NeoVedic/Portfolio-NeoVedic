@@ -27,9 +27,17 @@ export default function AdminTestimonials() {
       apiRequest("POST", "/api/admin/testimonials", data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/admin/testimonials"] });
+      queryClient.invalidateQueries({ queryKey: ["/api/testimonials"] });
       toast({ title: "Success", description: "Testimonial created successfully" });
       setIsDialogOpen(false);
       setFormData({});
+    },
+    onError: (error: any) => {
+      toast({
+        variant: "destructive",
+        title: "Error",
+        description: error.message || "Failed to create testimonial. Please check your input and try again.",
+      });
     },
   });
 
@@ -38,10 +46,18 @@ export default function AdminTestimonials() {
       apiRequest("PUT", `/api/admin/testimonials/${id}`, data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/admin/testimonials"] });
+      queryClient.invalidateQueries({ queryKey: ["/api/testimonials"] });
       toast({ title: "Success", description: "Testimonial updated successfully" });
       setIsDialogOpen(false);
       setEditingTestimonial(null);
       setFormData({});
+    },
+    onError: (error: any) => {
+      toast({
+        variant: "destructive",
+        title: "Error",
+        description: error.message || "Failed to update testimonial. Please check your input and try again.",
+      });
     },
   });
 
@@ -94,7 +110,18 @@ export default function AdminTestimonials() {
             <h1 className="text-3xl font-bold text-slate-900 dark:text-white">Testimonials</h1>
             <p className="text-slate-600 dark:text-slate-400 mt-2">Manage client testimonials and reviews</p>
           </div>
-          <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+          <Dialog 
+            open={isDialogOpen} 
+            onOpenChange={(open) => {
+              if (!createMutation.isPending && !updateMutation.isPending) {
+                setIsDialogOpen(open);
+                if (!open) {
+                  setFormData({});
+                  setEditingTestimonial(null);
+                }
+              }
+            }}
+          >
             <DialogTrigger asChild>
               <Button onClick={handleNew} data-testid="button-create-testimonial">
                 <Plus className="w-4 h-4 mr-2" />

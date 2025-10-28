@@ -18,6 +18,14 @@ export type AdminUser = {
   createdAt: Date;
 };
 
+export type SafeAdminUser = {
+  id: string;
+  email: string;
+  name: string;
+  role: "admin" | "editor";
+  createdAt: Date;
+};
+
 export const loginSchema = z.object({
   email: z.string().email("Please enter a valid email address"),
   password: z.string().min(1, "Password is required"),
