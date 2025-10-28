@@ -173,10 +173,34 @@ export type Service = {
   createdAt: Date;
 };
 
+export const insertTestimonialSchema = z.object({
+  name: z.string().min(2, "Name must be at least 2 characters"),
+  role: z.string().min(2, "Role is required"),
+  company: z.string().min(2, "Company is required"),
+  content: z.string().min(10, "Content must be at least 10 characters"),
+  rating: z.number().int().min(1).max(5).default(5),
+  photoUrl: z.string().url().optional(),
+  order: z.number().int().default(0),
+});
+
+export type InsertTestimonial = z.infer<typeof insertTestimonialSchema>;
+
+export type Testimonial = {
+  id: string;
+  name: string;
+  role: string;
+  company: string;
+  content: string;
+  rating: number;
+  photoUrl: string | null;
+  order: number;
+  createdAt: Date;
+};
+
 export const insertActivityLogSchema = z.object({
   userId: z.string(),
   action: z.string().min(3, "Action description is required"),
-  entityType: z.enum(["blog", "portfolio", "team", "service", "lead", "job-application"]),
+  entityType: z.enum(["blog", "portfolio", "team", "service", "lead", "job-application", "testimonial", "admin-user"]),
   entityId: z.string().optional(),
   details: z.string().optional(),
 });

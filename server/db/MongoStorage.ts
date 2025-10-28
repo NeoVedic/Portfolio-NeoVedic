@@ -15,6 +15,8 @@ import {
   type InsertTeamMember,
   type Service,
   type InsertService,
+  type Testimonial,
+  type InsertTestimonial,
   type ActivityLog,
   type InsertActivityLog
 } from "@shared/schema";
@@ -25,6 +27,7 @@ import { Blog as BlogModel } from "./models/Blog";
 import { Portfolio as PortfolioModel } from "./models/Portfolio";
 import { TeamMember as TeamMemberModel } from "./models/TeamMember";
 import { Service as ServiceModel } from "./models/Service";
+import { Testimonial as TestimonialModel } from "./models/Testimonial";
 import { ActivityLog as ActivityLogModel } from "./models/ActivityLog";
 import { connectToMongoDB } from "./mongodb";
 import type { IStorage } from "../storage";
@@ -786,6 +789,102 @@ export class MongoStorage implements IStorage {
     await connectToMongoDB();
     
     const result = await ServiceModel.findByIdAndDelete(id);
+    return result !== null;
+  }
+
+  async createTestimonial(testimonial: InsertTestimonial): Promise<Testimonial> {
+    await connectToMongoDB();
+    
+    const newTestimonial = new TestimonialModel({
+      name: testimonial.name,
+      role: testimonial.role,
+      company: testimonial.company,
+      content: testimonial.content,
+      rating: testimonial.rating,
+      photoUrl: testimonial.photoUrl,
+      order: testimonial.order,
+    });
+    
+    const savedTestimonial = await newTestimonial.save();
+    
+    return {
+      id: (savedTestimonial._id as mongoose.Types.ObjectId).toString(),
+      name: savedTestimonial.name,
+      role: savedTestimonial.role,
+      company: savedTestimonial.company,
+      content: savedTestimonial.content,
+      rating: savedTestimonial.rating,
+      photoUrl: savedTestimonial.photoUrl || null,
+      order: savedTestimonial.order,
+      createdAt: savedTestimonial.createdAt,
+    };
+  }
+
+  async getAllTestimonials(): Promise<Testimonial[]> {
+    await connectToMongoDB();
+    
+    const testimonials = await TestimonialModel.find().sort({ order: 1 });
+    
+    return testimonials.map(testimonial => ({
+      id: (testimonial._id as mongoose.Types.ObjectId).toString(),
+      name: testimonial.name,
+      role: testimonial.role,
+      company: testimonial.company,
+      content: testimonial.content,
+      rating: testimonial.rating,
+      photoUrl: testimonial.photoUrl || null,
+      order: testimonial.order,
+      createdAt: testimonial.createdAt,
+    }));
+  }
+
+  async getTestimonialById(id: string): Promise<Testimonial | null> {
+    await connectToMongoDB();
+    
+    const testimonial = await TestimonialModel.findById(id);
+    if (!testimonial) return null;
+    
+    return {
+      id: (testimonial._id as mongoose.Types.ObjectId).toString(),
+      name: testimonial.name,
+      role: testimonial.role,
+      company: testimonial.company,
+      content: testimonial.content,
+      rating: testimonial.rating,
+      photoUrl: testimonial.photoUrl || null,
+      order: testimonial.order,
+      createdAt: testimonial.createdAt,
+    };
+  }
+
+  async updateTestimonial(id: string, updates: Partial<InsertTestimonial>): Promise<Testimonial | null> {
+    await connectToMongoDB();
+    
+    const testimonial = await TestimonialModel.findByIdAndUpdate(
+      id,
+      updates,
+      { new: true }
+    );
+    
+    if (!testimonial) return null;
+    
+    return {
+      id: (testimonial._id as mongoose.Types.ObjectId).toString(),
+      name: testimonial.name,
+      role: testimonial.role,
+      company: testimonial.company,
+      content: testimonial.content,
+      rating: testimonial.rating,
+      photoUrl: testimonial.photoUrl || null,
+      order: testimonial.order,
+      createdAt: testimonial.createdAt,
+    };
+  }
+
+  async deleteTestimonial(id: string): Promise<boolean> {
+    await connectToMongoDB();
+    
+    const result = await TestimonialModel.findByIdAndDelete(id);
     return result !== null;
   }
 

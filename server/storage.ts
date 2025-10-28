@@ -13,6 +13,8 @@ import {
   type InsertTeamMember,
   type Service,
   type InsertService,
+  type Testimonial,
+  type InsertTestimonial,
   type ActivityLog,
   type InsertActivityLog
 } from "@shared/schema";
@@ -67,6 +69,12 @@ export interface IStorage {
   updateService(id: string, updates: Partial<InsertService>): Promise<Service | null>;
   deleteService(id: string): Promise<boolean>;
   
+  createTestimonial(testimonial: InsertTestimonial): Promise<Testimonial>;
+  getAllTestimonials(): Promise<Testimonial[]>;
+  getTestimonialById(id: string): Promise<Testimonial | null>;
+  updateTestimonial(id: string, updates: Partial<InsertTestimonial>): Promise<Testimonial | null>;
+  deleteTestimonial(id: string): Promise<boolean>;
+  
   createActivityLog(log: InsertActivityLog): Promise<ActivityLog>;
   getActivityLogs(limit?: number): Promise<ActivityLog[]>;
   getUserActivityLogs(userId: string, limit?: number): Promise<ActivityLog[]>;
@@ -91,6 +99,7 @@ export class MemStorage implements IStorage {
   private portfolios: Map<string, Portfolio>;
   private teamMembers: Map<string, TeamMember>;
   private services: Map<string, Service>;
+  private testimonials: Map<string, Testimonial>;
   private activityLogs: Map<string, ActivityLog>;
 
   constructor() {
@@ -101,6 +110,7 @@ export class MemStorage implements IStorage {
     this.portfolios = new Map();
     this.teamMembers = new Map();
     this.services = new Map();
+    this.testimonials = new Map();
     this.activityLogs = new Map();
     
     this.seedDefaultAdmin();
@@ -436,6 +446,47 @@ export class MemStorage implements IStorage {
 
   async deleteService(id: string): Promise<boolean> {
     return this.services.delete(id);
+  }
+
+  async createTestimonial(testimonial: InsertTestimonial): Promise<Testimonial> {
+    const id = randomUUID();
+    const newTestimonial: Testimonial = {
+      ...testimonial,
+      id,
+      photoUrl: testimonial.photoUrl || null,
+      rating: testimonial.rating || 5,
+      order: testimonial.order || 0,
+      createdAt: new Date(),
+    };
+    this.testimonials.set(id, newTestimonial);
+    return newTestimonial;
+  }
+
+  async getAllTestimonials(): Promise<Testimonial[]> {
+    return Array.from(this.testimonials.values()).sort((a, b) => a.order - b.order);
+  }
+
+  async getTestimonialById(id: string): Promise<Testimonial | null> {
+    return this.testimonials.get(id) || null;
+  }
+
+  async updateTestimonial(id: string, updates: Partial<InsertTestimonial>): Promise<Testimonial | null> {
+    const testimonial = this.testimonials.get(id);
+    if (!testimonial) return null;
+
+    const updatedTestimonial: Testimonial = {
+      ...testimonial,
+      ...updates,
+      photoUrl: updates.photoUrl !== undefined ? updates.photoUrl : testimonial.photoUrl,
+      rating: updates.rating !== undefined ? updates.rating : testimonial.rating,
+      order: updates.order !== undefined ? updates.order : testimonial.order,
+    };
+    this.testimonials.set(id, updatedTestimonial);
+    return updatedTestimonial;
+  }
+
+  async deleteTestimonial(id: string): Promise<boolean> {
+    return this.testimonials.delete(id);
   }
 
   async createActivityLog(log: InsertActivityLog): Promise<ActivityLog> {
