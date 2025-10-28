@@ -11,7 +11,8 @@ import {
   LogOut,
   Menu,
   X,
-  Rocket
+  Rocket,
+  UserCheck
 } from "lucide-react";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
@@ -25,6 +26,7 @@ interface NavItem {
 const navItems: NavItem[] = [
   { href: "/admin/dashboard", label: "Dashboard", icon: <LayoutDashboard className="w-5 h-5" /> },
   { href: "/admin/leads", label: "Leads", icon: <Mail className="w-5 h-5" /> },
+  { href: "/admin/job-applications", label: "Job Applications", icon: <UserCheck className="w-5 h-5" /> },
   { href: "/admin/blogs", label: "Blogs", icon: <FileText className="w-5 h-5" /> },
   { href: "/admin/portfolio", label: "Portfolio", icon: <Briefcase className="w-5 h-5" /> },
   { href: "/admin/team", label: "Team", icon: <Users className="w-5 h-5" /> },

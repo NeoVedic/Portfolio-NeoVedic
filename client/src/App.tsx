@@ -26,6 +26,7 @@ import NotFound from "@/pages/not-found";
 import AdminLogin from "@/pages/admin/Login";
 import AdminDashboard from "@/pages/admin/Dashboard";
 import AdminLeads from "@/pages/admin/Leads";
+import AdminJobApplications from "@/pages/admin/JobApplications";
 import AdminBlogs from "@/pages/admin/Blogs";
 import AdminPortfolio from "@/pages/admin/Portfolio";
 import AdminTeam from "@/pages/admin/Team";
@@ -61,6 +62,11 @@ function Router() {
       <Route path="/admin/leads">
         <ProtectedRoute>
           <AdminLeads />
+        </ProtectedRoute>
+      </Route>
+      <Route path="/admin/job-applications">
+        <ProtectedRoute>
+          <AdminJobApplications />
         </ProtectedRoute>
       </Route>
       <Route path="/admin/blogs">
