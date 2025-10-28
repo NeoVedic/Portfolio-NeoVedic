@@ -1,9 +1,37 @@
 import mongoose from 'mongoose';
+import bcrypt from 'bcryptjs';
 import { config } from '../config';
+import { AdminUser } from './models/AdminUser';
 
 let isConnected = false;
 let connectionAttempts = 0;
 const maxRetries = 3;
+let isSeeded = false;
+
+async function seedDefaultAdmin(): Promise<void> {
+  if (isSeeded) return;
+  
+  try {
+    const existingAdmin = await AdminUser.findOne({ email: 'admin@neovedic.com' });
+    
+    if (!existingAdmin) {
+      const passwordHash = await bcrypt.hash('admin123', 10);
+      const defaultAdmin = new AdminUser({
+        email: 'admin@neovedic.com',
+        passwordHash,
+        name: 'Admin User',
+        role: 'admin',
+      });
+      
+      await defaultAdmin.save();
+      console.log('✅ Default admin user created (admin@neovedic.com / admin123)');
+    }
+    
+    isSeeded = true;
+  } catch (error) {
+    console.error('⚠️ Error seeding default admin:', error);
+  }
+}
 
 export async function connectToMongoDB(): Promise<void> {
   if (isConnected) {
@@ -27,6 +55,10 @@ export async function connectToMongoDB(): Promise<void> {
       isConnected = true;
       connectionAttempts = 0; // Reset on successful connection
       console.log('✅ Connected to MongoDB successfully');
+      
+      // Seed default admin user
+      await seedDefaultAdmin();
+      
       return;
     } catch (error) {
       console.error(`❌ MongoDB connection attempt ${connectionAttempts} failed:`, error);
